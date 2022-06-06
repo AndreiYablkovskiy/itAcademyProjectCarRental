@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars page</title>
+</head>
+<body>
+    <div th:each="cars : ${cars}">
+        <a th:href="@{car?id={id}(id=${cars.getId()})}" th:text="${cars.getMark()}">car</a>
+    </div>
+    <h4> <a th:href="@{/}"> To main page </a></h4>
+</body>
+</html>

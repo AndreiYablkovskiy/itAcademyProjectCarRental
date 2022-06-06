@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+        <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+        <head>
+            <meta charset="UTF-8">
+            <title>Home page</title>
+            <link href="style.css" rel="stylesheet">
+        </head>
+        <body>
+        <h1> <b>Welcome to the car rental website</b> </h1>
+            <h4><a th:href="@{/users/login}">Login</a></h4>
+            <h4><a th:href="@{users/registration}">Create new user</a></h4>
+        <div >
+            <h4><a href="/logout">Logout</a></h4>
+        </div>
+        <div>
+            <h4> <a th:href="@{/cars}"> Cars for selection </a></h4>
+        </div>
+        <div>
+            <h4> <a th:href="@{/users/account}"> User account page </a></h4>
+        </div>
+    </body>
+</html>

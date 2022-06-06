@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New order page</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/orders/new}">
+    <input type="hidden" name="carId" th:value="${carId}"/>
+    <label for="rentalStart"> Select rental start date and time: </label>
+    <input type="datetime-local" name="rentalStart" id="rentalStart"/>
+    <br/>
+    <label for="rentalEnd"> Select rental end date and time: </label>
+    <input type="datetime-local" name="rentalEnd" id="rentalEnd"/>
+    <br/>
+    <input type="submit" value="Create new order"/>
+</form>
+
+</body>
+</html>

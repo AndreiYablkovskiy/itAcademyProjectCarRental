@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars page</title>
+</head>
+<body>
+    <h3> Username: <span th:text="${user.getUsername()}"></span> </h3>
+    <h3><b> Firstname: </b><span th:text="${user.getFirstname()}"></span> </h3>
+    <h3><b> Surname: </b><span th:text="${user.getSurname()}"></span> </h3>
+    <h3><b> Passport number: </b><span th:text="${user.getPassportNumber()}"></span> </h3>
+    <h3><b> Orders:</b></h3>
+    <div th:each="orders : ${orders}">
+       Number <a th:href="@{order?id={id}(id=${orders.getId()})}"  th:text="${orders.getId()}"></a> form <span th:text="${orders.getOrderDate().toLocalDate()}"></span>
+    </div>
+    <h4> <a th:href="@{/}"> To main page </a></h4>
+</body>
+</html>
