@@ -12,4 +12,6 @@ public interface UserService extends UserDetailsService{
      User findByUsername(String username);
      List<Order> findOrdersByUserId (Integer userId);
      Order findUsersOrder(Integer id);
+     User findById(Integer id);
+     boolean updateUser(User user);
 }

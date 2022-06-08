@@ -5,15 +5,28 @@
     <title>Created order page</title>
 </head>
 <body>
-    <h3><b> Order: </b></h3>
-    <h3><b> Order number: </b><span th:text="${order.getId()}"></span> </h3>
-    <h3><b> Order status: </b><span th:text="${order.getOrderStatus().getName()}"></span> </h3>
-    <h3><b> Order creation date: </b><span th:text="${order.getOrderDate().toLocalDate()}"></span> time: <span th:text="${order.getOrderDate().toLocalTime()}"></span></h3>
-    <h3><b> Rental start date: </b><span th:text="${order.getRentalStart().toLocalDate()}"></span> time: <span th:text="${order.getRentalStart().toLocalTime()}"></span></h3>
-    <h3><b> Rental end date: </b><span th:text="${order.getRentalEnd().toLocalDate()}"></span> time: <span th:text="${order.getRentalEnd().toLocalTime()}"></span></h3>
-    <h3><b> Car mark and model: </b><span th:text="${order.getCar().getMark()}"></span> <span th:text="${order.getCar().getModel()}"></span> </h3>
-    <h3><b> Payment value: </b><span th:text="${order.getPaymentValue}"></span> </h3>
-    <h3><b> Username: </b><span th:text="${#authentication.getPrincipal().getUsername()}"></span> </h3>
-<h3> <a th:href="@{/users/account}"> Back to account </a></h3>
+<h3><b> Order number: </b><span th:text="${order.getId()}"></span></h3>
+<h3><b> Order status: </b><span th:text="${order.getOrderStatus().getName()}"></span></h3>
+<h3><b> Order creation date: </b><span th:text="${order.getOrderDate().toLocalDate()}"></span> time: <span
+        th:text="${order.getOrderDate().toLocalTime()}"></span></h3>
+<h3><b> Rental start date: </b><span th:text="${order.getRentalStart().toLocalDate()}"></span> time: <span
+        th:text="${order.getRentalStart().toLocalTime()}"></span></h3>
+<h3><b> Rental end date: </b><span th:text="${order.getRentalEnd().toLocalDate()}"></span> time: <span
+        th:text="${order.getRentalEnd().toLocalTime()}"></span></h3>
+<h3><b> Car mark and model: </b><span th:text="${order.getCar().getMark()}"></span> <span
+        th:text="${order.getCar().getModel()}"></span></h3>
+<h3><b> Payment value: </b><span th:text="${order.getPaymentValue}"></span></h3>
+<h3><b> Username: </b><span th:text="${#authentication.getPrincipal().getUsername()}"></span></h3>
+<h3>
+    <div th:if="${order.getOrderStatus().getId()} eq '1' or ${order.getOrderStatus().getId()} eq '2' or ${order.getOrderStatus().getId()} eq '7'">
+        <form th:method="POST" th:action="@{/orders/cancel}">
+            <input type="hidden" name="id" th:value="${order.getId()}">
+            <button>Cancel the order</button>
+        </form>
+    </div>
+</h3>
+<p></p>
+<h3><a th:href="@{/users/account}"> Back to account </a></h3>
+
 </body>
 </html>

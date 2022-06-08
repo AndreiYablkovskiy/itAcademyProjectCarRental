@@ -14,7 +14,6 @@ import project.EE.model.security.Encoder;
 import project.EE.model.entity.Role;
 import project.EE.model.entity.User;
 import project.EE.model.repository.UserRepository;
-import project.EE.service.OrderService;
 import project.EE.service.UserService;
 
 import java.util.Collection;
@@ -36,7 +35,19 @@ public class UserServiceImpl implements UserService {
         if (userFromDB != null) {
            return false;
         }
-        user.setRoles(Collections.singletonList(new Role(1, "ROLE_USER"))); // поправить
+        user.setRoles(Collections.singletonList(new Role(1, "ROLE_USER")));
+        user.setPassword(encoder.bCryptPasswordEncoder().encode(user.getPassword()));
+        userRepository.save(user);
+        return true;
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        User userFromDB = userRepository.findByUsername((user.getUsername()));
+        if (userFromDB != null) {
+            return false;
+        }
+        user.setRoles(Collections.singletonList(new Role(1, "ROLE_USER")));
         user.setPassword(encoder.bCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
         return true;
@@ -55,6 +66,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Order findUsersOrder(Integer id) {
       return   orderRepository.getById(id);
+    }
+
+    @Override
+    public User findById(Integer id) {
+      return   userRepository.getById(id);
     }
 
     @Override

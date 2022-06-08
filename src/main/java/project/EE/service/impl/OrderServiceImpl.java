@@ -56,4 +56,16 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderStatus(new OrderStatus(7,"paid"));
         orderRepository.save(order);
     }
+
+    @Override
+    public List<Order> getAllOrders() {
+      return   orderRepository.findAll();
+    }
+
+    @Override
+    public void cancelOrder(Integer id) {
+        Order order = orderRepository.getById(id);
+        order.setOrderStatus(new OrderStatus(6,"canceled"));
+        orderRepository.save(order);
+    }
 }

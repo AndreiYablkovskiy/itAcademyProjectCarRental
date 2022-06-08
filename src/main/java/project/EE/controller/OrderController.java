@@ -5,22 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.EE.model.entity.Order;
-import project.EE.model.repository.OrderRepository;
 import project.EE.service.OrderService;
-import project.EE.service.UserService;
-
 import java.security.Principal;
-
-
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/orders")
 public class OrderController {
     private final OrderService orderService;
-    private final UserService userService;
-    private final OrderRepository orderRepository;
-
 
     @GetMapping("/new")
     public String newOrder (@RequestParam("id") Integer carId, Model model) {
@@ -51,4 +43,9 @@ public class OrderController {
         return "orders/payment";
     }
 
+    @PostMapping("/cancel")
+    public String cancelOrder(@RequestParam Integer id){
+        orderService.cancelOrder(id);
+        return "redirect:/users/account";
+    }
 }

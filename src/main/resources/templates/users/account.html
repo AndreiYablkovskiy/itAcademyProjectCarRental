@@ -5,14 +5,22 @@
     <title>Cars page</title>
 </head>
 <body>
-    <h3> Username: <span th:text="${user.getUsername()}"></span> </h3>
-    <h3><b> Firstname: </b><span th:text="${user.getFirstname()}"></span> </h3>
-    <h3><b> Surname: </b><span th:text="${user.getSurname()}"></span> </h3>
-    <h3><b> Passport number: </b><span th:text="${user.getPassportNumber()}"></span> </h3>
-    <h3><b> Orders:</b></h3>
-    <div th:each="orders : ${orders}">
-       Number <a th:href="@{order?id={id}(id=${orders.getId()})}"  th:text="${orders.getId()}"></a> form <span th:text="${orders.getOrderDate().toLocalDate()}"></span>
-    </div>
-    <h4> <a th:href="@{/}"> To main page </a></h4>
+<h3> Username: <span style="color:blue" th:text="${user.getUsername()}"></span></h3>
+<h3><b> Firstname: </b><span style="color:blue" th:text="${user.getFirstname()}"></span></h3>
+<h3><b> Surname: </b><span style="color:blue" th:text="${user.getSurname()}"></span></h3>
+<h3><b> Passport number: </b><span style="color:blue" th:text="${user.getPassportNumber()}"></span></h3>
+<form th:method="GET" th:action="@{/users/account/edit}">
+    <input type="hidden" name="id" th:value="${user.getId()}">
+    <button>Edit profile</button>
+</form>
+<h2><b>Your Orders:</b></h2>
+<div th:each="orders : ${orders}">
+    <h3> Number <i><a th:href="@{order?id={id}(id=${orders.getId()})}" th:text="${orders.getId()}"></a></i>
+        <p>From <i><span th:text="${orders.getOrderDate().toLocalDate()}"></span></i></p>
+        <p>Order status is <i><span style="color:blue"  th:text="${orders.getOrderStatus().getName()}"></span></i></p>
+        <p>-------------------------------------------------</p>
+    </h3>
+</div>
+<h3><a th:href="@{/}"> To main page </a></h3>
 </body>
 </html>

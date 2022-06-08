@@ -5,24 +5,33 @@
     <title>New user page</title>
 </head>
 <body>
+<h3>
     <form th:method="POST" th:action="@{/users/registration}" th:object="${user}">
         <label for="username"> Enter username: </label>
         <input type="text" th:field="*{username}" id="username">
+        <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
         <br/>
         <label for="password"> Enter password: </label>
         <input type="password" th:field="*{password}" id="password"/>
+        <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
         <br/>
         <label for="firstname"> Enter firstname: </label>
         <input type="text" th:field="*{firstname}" id="firstname"/>
+        <div style="color:red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Firstname error</div>
         <br/>
         <label for="surname"> Enter surname: </label>
         <input type="text" th:field="*{surname}" id="surname"/>
+        <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname error</div>
         <br/>
         <label for="passportNumber"> Enter passport number: </label>
         <input type="text" th:field="*{passportNumber}" id="passportNumber"/>
+        <div style="color:red" th:if="${#fields.hasErrors('passportNumber')}" th:errors="*{passportNumber}">Passport
+            number error
+        </div>
         <br/>
         <input type="submit" value="Create"/>
     </form>
+</h3>
 
 </body>
 </html>

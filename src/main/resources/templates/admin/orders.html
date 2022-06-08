@@ -6,8 +6,8 @@
 </head>
 <body>
 <h3>
-    <div th:each="cars : ${cars}">
-        <a th:href="@{car?id={id}(id=${cars.getId()})}" th:text="${cars.getMark()}">car</a>
+    <div th:each="order : ${orders}">
+        <a th:href="@{order?id={id}(id=${order.getId()})}" th:text="${order.getId()}" >order</a>
     </div>
     <p></p>
     <div>

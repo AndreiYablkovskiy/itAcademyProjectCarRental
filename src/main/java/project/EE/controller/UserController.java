@@ -30,7 +30,7 @@ public class UserController {
             return "users/registration";
         }
         if (!userService.saveUser(user)){
-            model.addAttribute("usernameError", "A user with the same name already exists");
+            model.addAttribute("usernameAlreadyExist", "A user with the same name already exists");
             return "users/registration";
         }
         return "redirect:/";
@@ -44,9 +44,26 @@ public class UserController {
         model.addAttribute("orders", userOrders);
         return "users/account";
     }
+    @GetMapping("/account/edit")
+    public String editAccount (@RequestParam Integer id, Model model){
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "users/edit";
+    }
+    @PostMapping("/account/edit")
+    public String editAccount (@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:users/account/edit";
+        }
+        if (!userService.updateUser(user)){
+            model.addAttribute("usernameAlreadyExist", "A user with the same name already exists");
+            return "redirect:users/account/edit";
+        }
+        return "redirect:/logout";
+    }
 
     @GetMapping("/order")
-    public String getCarById (@RequestParam Integer id, Model model){
+    public String getUserOrder (@RequestParam Integer id, Model model){
         Order order = userService.findUsersOrder(id);
         model.addAttribute("order", order);
         return "users/order";

@@ -3,6 +3,8 @@ package project.EE.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -14,24 +16,28 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    @Size(min = 2, max = 30, message = "Никнейм должнен быть от 5 до 30 символов")
+    @Column()
+    @NotEmpty(message = "Username should not be empty")
+    @Size(min = 2, max = 30, message = "Username should be between 2 and 30 characters")
     private String username;
 
-    @Column(nullable = false)
-    @Size(min = 2, max = 45, message = "Имя должно быть от 2 до 45 символов")
+    @Column()
+    @NotEmpty(message = "Firstname should not be empty")
+    @Size(min = 2, max = 30, message = "Firstname should be between 2 and 30 characters")
     private String firstname;
 
-    @Column(nullable = false)
-    @Size(min = 2, max = 45, message = "Фамилия должна быть от 2 до 45 символов")
+    @Column()
+    @NotEmpty(message = "Surname should not be empty")
+    @Size(min = 2, max = 30, message = "Surname should be between 2 and 30 characters")
     private String surname;
 
-    @Column(nullable = false)
-    @Size(min = 5, message = "Пароль должен быть от 5 символов")
+    @Column()
+    @NotEmpty(message = "Surname should not be empty")
+    @Size(min = 8,message = "Password should be min 8 characters")
     private String password;
 
-    @Column(name ="passport_number", nullable = false)
-    @Size(min = 9, max =13, message = "Личный номер паспорта должен быть 13 символов")
+    @Column(name ="passport_number")
+    @Size(min = 10, max = 13, message = "Passport number should be between 10 and 13 characters")
     private String passportNumber;
 
     @ManyToMany(cascade = CascadeType.MERGE)
