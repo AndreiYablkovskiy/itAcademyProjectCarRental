@@ -18,27 +18,27 @@
         th:text="${order.getCar().getModel()}"></span></h3>
 <h3><b> Payment value: </b><span style="color:navy" th:text="${order.getPaymentValue}"></span></h3>
 <h3><b> Username: </b><a th:href="@{/admin/user?username={name}(name=${order.getUser().getUsername()})}" th:text="${order.getUser().getUsername()}"></a></h3>
-<div th:if="${order.getOrderStatus().getId()} eq '7'">
+<h3><b> Order info: </b></h3>
+<p><span style="color:navy" th:text="${order.getOrderInfo()}"></span></p>
+
+<p><div th:if="${order.getOrderStatus().getId()} eq '7'">
     <form th:method="POST" th:action="@{/admin/order}">
         <input type="hidden" name="order" th:value="${order.getId()}">
         <input type="hidden" name="status" th:value="2">
         <button>Approve</button>
-    </form>
-</div>
-<p></p>
-<div th:if="${order.getOrderStatus().getId()} eq '7'">
-    <form th:method="POST" th:action="@{/admin/order}">
+    </form> </p>
+    <p> <form th:method="POST" th:action="@{/admin/order}">
         <input type="hidden" name="order" th:value="${order.getId()}">
         <input type="hidden" name="status" th:value="8">
         <button>Reject</button>
-    </form>
+    </form></p>
 </div>
 <div th:if="${order.getOrderStatus().getId()} eq '2'">
-    <form th:method="POST" th:action="@{/admin/order}">
+    <p> <form th:method="POST" th:action="@{/admin/order}">
         <input type="hidden" name="order" th:value="${order.getId()}">
         <input type="hidden" name="status" th:value="3">
         <button>To active</button>
-    </form>
+    </form></p>
 </div>
 <div th:if="${order.getOrderStatus().getId()} eq '3'">
     <form th:method="POST" th:action="@{/admin/order}">
@@ -46,17 +46,19 @@
         <input type="hidden" name="status" th:value="4">
         <button>Complete</button>
     </form>
-</div>
-<p></p>
-<div th:if="${order.getOrderStatus().getId()} eq '3'">
-    <form th:method="POST" th:action="@{/admin/order}">
+    <p> <form th:method="POST" th:action="@{/admin/order}">
         <input type="hidden" name="order" th:value="${order.getId()}">
         <input type="hidden" name="status" th:value="5">
         <button>Incident</button>
-    </form>
+    </form></p>
 </div>
-<p></p>
-<h3><a th:href="@{/admin/orders?statusId=7}"> Back to orders with "Paid" status </a></h3>
+<p><form th:action="@{/admin/order/info}" th:method="POST">
+    <p><b>Edit order info:</b></p>
+    <p><textarea rows="15" cols="45" name="info" ></textarea></p>
+    <input type="hidden" name="order" th:value="${order.getId()}">
+    <p><button>Add order info</button></p>
+</form></p>
 
+<h3><a th:href="@{/admin/orders?statusId=7}"> Back to orders with "Paid" status </a></h3>
 </body>
 </html>

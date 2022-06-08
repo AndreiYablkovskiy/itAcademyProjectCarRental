@@ -62,6 +62,22 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void updateOrderStatus(Integer orderId, Integer statusId, String employeeName) {
+        Order order = orderRepository.getById(orderId);
+        OrderStatus orderStatus = orderStatusService.findById(statusId);
+        order.setOrderStatus(orderStatus);
+        order.setEmployeeName(employeeName);
+        orderRepository.save(order);
+    }
+
+    @Override
+    public void updateOrderInfo(Integer orderId, String orderInfo) {
+        Order order = orderRepository.getById(orderId);
+        order.setOrderInfo(orderInfo);
+        orderRepository.save(order);
+    }
+
+    @Override
     public List<Order> getAllOrders() {
       return   orderRepository.findAll();
     }

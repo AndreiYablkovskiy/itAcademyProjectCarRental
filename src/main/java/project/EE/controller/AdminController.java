@@ -48,7 +48,14 @@ public class AdminController {
 
     @PostMapping("/order")
     public String updateOrderStatus (@RequestParam("order") Integer orderId, @RequestParam("status") Integer statusId, Principal principal){
-        orderService.updateOrderStatus(orderId, statusId);
+        String employeeName = principal.getName();
+        orderService.updateOrderStatus(orderId, statusId, employeeName);
+        return "redirect:/admin/order?id="+ orderId;
+    }
+
+    @PostMapping("/order/info")
+    public String updateOrderInfo (@RequestParam("order") Integer orderId, @RequestParam("info") String orderInfo){
+        orderService.updateOrderInfo(orderId, orderInfo);
         return "redirect:/admin/order?id="+ orderId;
     }
 
