@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Success page</title>
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
     <h1> Hello, <span th:text="${#authentication.getPrincipal().getUsername()}"></span> </h1>  <span th:text="${orders.getOrderDate().toLocalDate()}}"> </span>

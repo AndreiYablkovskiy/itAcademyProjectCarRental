@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Created order page</title>
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
     <h2> Your order has been created, after payment, it will be available for processing </h2>
     <h3><b> Order: </b></h3>
-    <h3><b> Order number: </b><span th:text="${order.getId()}"></span> </h3>
-    <h3><b> Order status: </b><span th:text="${order.getOrderStatus().getName()}"></span> </h3>
-    <h3><b> Order creation date: </b><span th:text="${order.getOrderDate().toLocalDate()}"></span> time: <span th:text="${order.getOrderDate().toLocalTime()}"></span></h3>
-    <h3><b> Rental start date: </b><span th:text="${order.getRentalStart().toLocalDate()}"></span> time: <span th:text="${order.getRentalStart().toLocalTime()}"></span></h3>
-    <h3><b> Rental end date: </b><span th:text="${order.getRentalEnd().toLocalDate()}"></span> time: <span th:text="${order.getRentalEnd().toLocalTime()}"></span></h3>
-    <h3><b> Car mark and model: </b><span th:text="${order.getCar().getMark()}"></span> <span th:text="${order.getCar().getModel()}"></span> </h3>
-    <h3><b> Payment value: </b><span th:text="${order.getPaymentValue}"></span> </h3>
-    <h3><b> Username: </b><span th:text="${#authentication.getPrincipal().getUsername()}"></span> </h3>
+    <h3><b> Order number: </b><span style="color:navy" th:text="${order.getId()}"></span> </h3>
+    <h3><b> Order status: </b><span style="color:navy" th:text="${order.getOrderStatus().getName()}"></span> </h3>
+    <h3><b> Order creation date: </b><span style="color:navy" th:text="${order.getOrderDate().toLocalDate()}"></span> time: <span th:text="${order.getOrderDate().toLocalTime()}"></span></h3>
+    <h3><b> Rental start date: </b><span style="color:navy" th:text="${order.getRentalStart().toLocalDate()}"></span> time: <span th:text="${order.getRentalStart().toLocalTime()}"></span></h3>
+    <h3><b> Rental end date: </b><span style="color:navy" th:text="${order.getRentalEnd().toLocalDate()}"></span> time: <span th:text="${order.getRentalEnd().toLocalTime()}"></span></h3>
+    <h3><b> Car mark and model: </b><span style="color:navy" th:text="${order.getCar().getMark()}"></span> <span th:text="${order.getCar().getModel()}"></span> </h3>
+    <h3><b> Payment value: </b><span style="color:navy" th:text="${order.getPaymentValue}"></span> </h3>
+    <h3><b> Username: </b><span style="color:navy" th:text="${#authentication.getPrincipal().getUsername()}"></span> </h3>
     <form th:action="@{/orders/payment}" target="_blank">
-        <input type="hidden" name="orderId" th:value="${order.getId()}">
+        <input type="hidden" name="order" th:value="${order.getId()}">
+        <input type="hidden" name="status" th:value="${order.getOrderStatus().getId()}">
         <button type="submit"> Pay </button>
     </form>
     <h3> <a th:href="@{/}"> To main page </a></h3>

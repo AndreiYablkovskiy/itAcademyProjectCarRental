@@ -1,19 +1,5 @@
-h1{
-background:#C5C4B5;
-font-size: 75px;
-border: 2px solid #060601;
-padding-left: 700px;
-
+body{
+background:LightGrey;
 }
 
 
-footer{
-background:#C5C4B5;
-height: 125px;
-font-size: 40px;
-}
-
-#footerP{
-padding-left: 700px;
-padding-top: 45px;
-}

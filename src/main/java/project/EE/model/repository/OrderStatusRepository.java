@@ -6,4 +6,5 @@ import project.EE.model.entity.OrderStatus;
 
 @Repository
 public interface OrderStatusRepository extends JpaRepository<OrderStatus, Integer> {
+    OrderStatus findByName(String name);
 }

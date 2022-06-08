@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<h3><b> Order number: </b><span style="color:navy" th:text="${order.getId()}"></span></h3>
+<h3><b> Order status: </b><span style="color:navy" th:text="${order.getOrderStatus().getName()}"></span></h3>
+<h3><b> Order creation date: </b><span style="color:navy" th:text="${order.getOrderDate().toLocalDate()}"></span> time: <span style="color:navy"
+        th:text="${order.getOrderDate().toLocalTime()}"></span></h3>
+<h3><b> Rental start date: </b><span style="color:navy" th:text="${order.getRentalStart().toLocalDate()}"></span> time: <span style="color:navy"
+        th:text="${order.getRentalStart().toLocalTime()}"></span></h3>
+<h3><b> Rental end date: </b><span style="color:navy" th:text="${order.getRentalEnd().toLocalDate()}"></span> time: <span style="color:navy"
+        th:text="${order.getRentalEnd().toLocalTime()}"></span></h3>
+<h3><b> Car mark and model: </b><span style="color:navy" th:text="${order.getCar().getMark()}"></span> <span style="color:navy"
+        th:text="${order.getCar().getModel()}"></span></h3>
+<h3><b> Payment value: </b><span style="color:navy" th:text="${order.getPaymentValue}"></span></h3>
+<h3><b> Username: </b><a th:href="@{/admin/user?username={name}(name=${order.getUser().getUsername()})}" th:text="${order.getUser().getUsername()}"></a></h3>
+<div th:if="${order.getOrderStatus().getId()} eq '7'">
+    <form th:method="POST" th:action="@{/admin/order}">
+        <input type="hidden" name="order" th:value="${order.getId()}">
+        <input type="hidden" name="status" th:value="2">
+        <button>Approve</button>
+    </form>
+</div>
+<p></p>
+<div th:if="${order.getOrderStatus().getId()} eq '7'">
+    <form th:method="POST" th:action="@{/admin/order}">
+        <input type="hidden" name="order" th:value="${order.getId()}">
+        <input type="hidden" name="status" th:value="8">
+        <button>Reject</button>
+    </form>
+</div>
+<div th:if="${order.getOrderStatus().getId()} eq '2'">
+    <form th:method="POST" th:action="@{/admin/order}">
+        <input type="hidden" name="order" th:value="${order.getId()}">
+        <input type="hidden" name="status" th:value="3">
+        <button>To active</button>
+    </form>
+</div>
+<div th:if="${order.getOrderStatus().getId()} eq '3'">
+    <form th:method="POST" th:action="@{/admin/order}">
+        <input type="hidden" name="order" th:value="${order.getId()}">
+        <input type="hidden" name="status" th:value="4">
+        <button>Complete</button>
+    </form>
+</div>
+<p></p>
+<div th:if="${order.getOrderStatus().getId()} eq '3'">
+    <form th:method="POST" th:action="@{/admin/order}">
+        <input type="hidden" name="order" th:value="${order.getId()}">
+        <input type="hidden" name="status" th:value="5">
+        <button>Incident</button>
+    </form>
+</div>
+<p></p>
+<h3><a th:href="@{/admin/orders?statusId=7}"> Back to orders with "Paid" status </a></h3>
+
+</body>
+</html>

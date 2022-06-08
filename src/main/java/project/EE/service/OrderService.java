@@ -8,7 +8,8 @@ import java.util.List;
 public interface OrderService {
     void crateNewOrder (Integer carId, String rentalStart, String rentalEnd, Principal principal);
     Order showNewOrder (Principal principal);
-    void updateOrderStatusToPaid(Integer orderId);
+    void updateOrderStatus(Integer orderId, Integer statusId);
     List<Order> getAllOrders();
-    void cancelOrder (Integer id);
+    List<Order> getByStatusId(Integer id);
+    Order findById(Integer id);
 }

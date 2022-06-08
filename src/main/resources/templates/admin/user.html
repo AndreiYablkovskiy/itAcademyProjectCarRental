@@ -2,26 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cars page</title>
+    <title>User</title>
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
+<h3> User id: <span style="color:navy" th:text="${user.getId()}"></span></h3>
 <h3> Username: <span style="color:navy" th:text="${user.getUsername()}"></span></h3>
 <h3><b> Firstname: </b><span style="color:navy" th:text="${user.getFirstname()}"></span></h3>
 <h3><b> Surname: </b><span style="color:navy" th:text="${user.getSurname()}"></span></h3>
 <h3><b> Passport number: </b><span style="color:navy" th:text="${user.getPassportNumber()}"></span></h3>
-<form th:method="GET" th:action="@{/users/account/edit}">
-    <input type="hidden" name="id" th:value="${user.getId()}">
-    <button>Edit profile</button>
-</form>
-<h2><b>Your Orders:</b></h2>
+<h2><b>User orders:</b></h2>
 <div th:each="orders : ${orders}">
-    <h3> Number <i><a style="color:navy" th:href="@{/users/order?id={id}(id=${orders.getId()})}" th:text="${orders.getId()}"></a></i>
+    <h3> Number <i><a style="color:navy" th:href="@{/admin/order?id={id}(id=${orders.getId()})}" th:text="${orders.getId()}"></a></i>
         <p>From <i><span style="color:navy" th:text="${orders.getOrderDate().toLocalDate()}"></span></i></p>
-        <p>Order status is <i><span style="color:navy"  th:text="${orders.getOrderStatus().getName()}"></span></i></p>
+        <p>Order status is <i><span style="color:navy" th:text="${orders.getOrderStatus().getName()}"></span></i></p>
         <p>-------------------------------------------------</p>
     </h3>
 </div>
-<h3><a th:href="@{/}"> To main page </a></h3>
+<h3><a th:href="@{/admin/orders?statusId=7}"> Back to orders </a></h3>
 </body>
 </html>

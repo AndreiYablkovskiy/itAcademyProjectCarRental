@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Car page</title>
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
-<h3><p> Mark: <b> <span th:text="${car.getMark()}"> car </span></b></p>
-    <p> Model: <b> <span th:text="${car.getModel()}"> car </span></b></p>
+<h3><p> Mark: <b> <span style="color:navy" th:text="${car.getMark()}"> car </span></b></p>
+    <p> Model: <b> <span style="color:navy" th:text="${car.getModel()}"> car </span></b></p>
     <p> Rental price per hour: <b> <span Rental price per hour th:text="${car.getCostForOneHour()}"> car </span></b></p>
-    <p> Car status: <b> <span Car status is th:text="${car.getCarStatus().getName()}"> car </span></b></p>
+    <p> Car status: <b> <span style="color:navy" th:text="${car.getCarStatus().getName()}"> car </span></b></p>
     <a th:href="@{/orders/new?id={id}(id=${car.getId()})}">Select and create new order</a>
-    <a th:href="@{/cars}"> Cars for selection </a></h3>
+
+    <p><a th:href="@{/cars}"> Cars for selection </a></h3></p>
 </body>
 </html>

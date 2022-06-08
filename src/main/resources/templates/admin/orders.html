@@ -2,13 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Cars page</title>
+    <title>Orders</title>
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
 <h3>
     <div th:each="order : ${orders}">
-        <a th:href="@{order?id={id}(id=${order.getId()})}" th:text="${order.getId()}" >order</a>
+        <a th:href="@{/admin/order?id={id}(id=${order.getId()})}" th:text="${order.getId()}">order</a>
     </div>
+    <form th:method="GET" th:action="@{/admin/orders}">
+        <select name="statusId" id="statusId">
+            <option value="10">Select order status</option>
+            <option th:each="status : ${statuses}" th:value="${status.getId()}" th:text="${status.getName()}"></option>
+            <option value="0" th:text="all"></option>
+        </select>
+        <button>Filter</button>
+    </form>
     <p></p>
     <div>
         <a th:href="@{/}"> To main page </a>

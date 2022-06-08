@@ -3,24 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Created order page</title>
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
-<h3><b> Order number: </b><span th:text="${order.getId()}"></span></h3>
-<h3><b> Order status: </b><span th:text="${order.getOrderStatus().getName()}"></span></h3>
-<h3><b> Order creation date: </b><span th:text="${order.getOrderDate().toLocalDate()}"></span> time: <span
+<h3><b> Order number: </b><span style="color:navy" th:text="${order.getId()}"></span></h3>
+<h3><b> Order status: </b><span style="color:navy" th:text="${order.getOrderStatus().getName()}"></span></h3>
+<h3><b> Order creation date: </b><span style="color:navy" th:text="${order.getOrderDate().toLocalDate()}"></span> time: <span style="color:navy"
         th:text="${order.getOrderDate().toLocalTime()}"></span></h3>
-<h3><b> Rental start date: </b><span th:text="${order.getRentalStart().toLocalDate()}"></span> time: <span
+<h3><b> Rental start date: </b><span style="color:navy" th:text="${order.getRentalStart().toLocalDate()}"></span> time: <span style="color:navy"
         th:text="${order.getRentalStart().toLocalTime()}"></span></h3>
-<h3><b> Rental end date: </b><span th:text="${order.getRentalEnd().toLocalDate()}"></span> time: <span
+<h3><b> Rental end date: </b><span style="color:navy" th:text="${order.getRentalEnd().toLocalDate()}"></span> time: <span style="color:navy"
         th:text="${order.getRentalEnd().toLocalTime()}"></span></h3>
-<h3><b> Car mark and model: </b><span th:text="${order.getCar().getMark()}"></span> <span
+<h3><b> Car mark and model: </b><span style="color:navy" th:text="${order.getCar().getMark()}"></span> <span style="color:navy"
         th:text="${order.getCar().getModel()}"></span></h3>
-<h3><b> Payment value: </b><span th:text="${order.getPaymentValue}"></span></h3>
-<h3><b> Username: </b><span th:text="${#authentication.getPrincipal().getUsername()}"></span></h3>
+<h3><b> Payment value: </b><span style="color:navy" th:text="${order.getPaymentValue}"></span></h3>
+<h3><b> Username: </b><span style="color:navy" th:text="${order.getUser().getUsername()}"></span></h3>
+<h3>
+    <div th:if="${order.getOrderStatus().getId()} eq '1'">
+        <form th:action="@{/orders/payment}" target="_blank">
+            <input type="hidden" name="order" th:value="${order.getId()}">
+            <input type="hidden" name="status" th:value="7">
+            <button type="submit"> Pay </button>
+        </form>
+    </div>
+</h3>
 <h3>
     <div th:if="${order.getOrderStatus().getId()} eq '1' or ${order.getOrderStatus().getId()} eq '2' or ${order.getOrderStatus().getId()} eq '7'">
         <form th:method="POST" th:action="@{/orders/cancel}">
-            <input type="hidden" name="id" th:value="${order.getId()}">
+            <input type="hidden" name="order" th:value="${order.getId()}">
+            <input type="hidden" name="status" th:value="6">
             <button>Cancel the order</button>
         </form>
     </div>
