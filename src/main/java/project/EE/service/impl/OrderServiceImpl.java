@@ -73,7 +73,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void updateOrderInfo(Integer orderId, String orderInfo) {
         Order order = orderRepository.getById(orderId);
-        order.setOrderInfo(orderInfo);
+        order.setOrderInfo(order.getOrderInfo()+ " " +orderInfo);
         orderRepository.save(order);
     }
 

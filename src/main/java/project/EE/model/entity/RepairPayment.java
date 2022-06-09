@@ -4,6 +4,7 @@ package project.EE.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Data
@@ -14,9 +15,11 @@ public class RepairPayment {
     private Integer id;
 
     @Column
+    @NotEmpty(message = "Value should not be empty")
     private Double value;
 
     @Column
+    @NotEmpty(message = "Description should not be empty")
     private String description;
 
     @ManyToOne(cascade = CascadeType.ALL)
