@@ -9,13 +9,13 @@
 <h3>
     <form th:method="POST" th:action="@{/repair_payment/create}" th:object="${repairPayment}">
         <label for="value"> Enter repair value: </label>
-        <input type="text" th:field="*{value}" id="value">
+        <input type="number" th:field="*{value}" id="value">
         <div style="color:red" th:if="${#fields.hasErrors('value')}" th:errors="*{value}">Value error</div>
-        <br/>
-        <label for="description"> Description: </label>
+        <p><label for="description"> Description: </label></p>
         <textarea rows="15" cols="45" id="description" th:field="*{description}" placeholder="Add description" ></textarea>
         <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Value error</div>
-        <p><button> Create </button></p>
+        <p><input type="submit" value="Create"/></p>
+        <input type="hidden" name="order" th:value="${repairPayment.getOrder().getId()}">
     </form>
 </h3>
 
