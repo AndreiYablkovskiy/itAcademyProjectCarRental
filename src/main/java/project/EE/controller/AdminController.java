@@ -50,10 +50,12 @@ public class AdminController {
 
     @PostMapping("/order")
     public String updateOrderAndCarStatus (@RequestParam("order") Integer orderId, @RequestParam("status") Integer statusId
-            ,@RequestParam("carStatus") Integer carStatusId, Principal principal){
+            ,@RequestParam(value = "carStatus", required = false) Integer carStatusId, @RequestParam(value = "car", required = false) Integer carId, Principal principal){
         String employeeName = principal.getName();
         orderService.updateOrderStatus(orderId, statusId, employeeName);
-        carService.updateCarStatus(orderId, carStatusId);
+        if (carStatusId != null && carId != null) {
+            carService.updateCarStatus(carId, carStatusId);
+        }
         return "redirect:/admin/order?id="+ orderId;
     }
 

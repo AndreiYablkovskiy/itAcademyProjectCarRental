@@ -32,11 +32,11 @@ public class RepairPaymentController {
     }
 
     @PostMapping("/new")
-    public String registration (@RequestParam("order") Integer orderId,@RequestParam("carStatus") Integer carStatus,@ModelAttribute("repair_payment") @Valid RepairPayment repairPayment, BindingResult bindingResult) {
+    public String registration (@RequestParam("order") Integer orderId, @RequestParam("carStatus") Integer carStatus, @RequestParam("car") Integer carId, @ModelAttribute("repair_payment") @Valid RepairPayment repairPayment, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "repair_payment/new";
         }
-        carService.updateCarStatus(orderId, carStatus);
+        carService.updateCarStatus(carId, carStatus);
         repairPaymentService.save(repairPayment);
         return "redirect:/admin/order?id="+ orderId;
     }

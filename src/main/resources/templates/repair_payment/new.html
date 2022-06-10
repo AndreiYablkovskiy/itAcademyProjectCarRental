@@ -15,6 +15,7 @@
         <textarea rows="15" cols="45" id="description" th:field="*{description}" placeholder="Add description" ></textarea>
         <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Value error</div>
         <input type="hidden" name="order" th:value="${repairPayment.getOrder().getId()}">
+        <input type="hidden" name="car" th:value="${repairPayment.getOrder().getCar().getId()}">
         <input type="hidden" name="carStatus" th:value="3">
         <p><input type="submit" value="Create"/></p>
     </form>

@@ -41,14 +41,16 @@ public class OrderController {
 
     @GetMapping("/payment")
     public String payTheOrder(@RequestParam("order") Integer orderId, @RequestParam("status") Integer statusId
-            ,@RequestParam("carStatus") Integer carStatusId){
-        carService.updateCarStatus(orderId,carStatusId);
+            ,@RequestParam("carStatus") Integer carStatusId, @RequestParam("car") Integer carId){
+        carService.updateCarStatus(carId,carStatusId);
         orderService.updateOrderStatus(orderId, statusId);
         return "orders/payment";
     }
 
     @PostMapping("/cancel")
-    public String cancelOrder(@RequestParam("order") Integer orderId, @RequestParam("status") Integer statusId){
+    public String cancelOrder(@RequestParam("order") Integer orderId, @RequestParam("status") Integer statusId
+            ,@RequestParam(value = "carStatus") Integer carStatusId, @RequestParam(value = "car") Integer carId){
+        carService.updateCarStatus(carId,carStatusId);
         orderService.updateOrderStatus(orderId, statusId);
         return "redirect:/users/account";
     }

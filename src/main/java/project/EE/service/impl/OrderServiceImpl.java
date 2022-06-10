@@ -7,6 +7,7 @@ import project.EE.model.entity.Car;
 import project.EE.model.entity.Order;
 import project.EE.model.entity.OrderStatus;
 import project.EE.model.entity.User;
+import project.EE.model.repository.CarRepository;
 import project.EE.model.repository.OrderRepository;
 import project.EE.service.CarService;
 import project.EE.service.OrderService;

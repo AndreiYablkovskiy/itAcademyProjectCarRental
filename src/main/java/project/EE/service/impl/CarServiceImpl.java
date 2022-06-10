@@ -4,11 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import project.EE.model.entity.Car;
 import project.EE.model.entity.CarStatus;
-import project.EE.model.entity.Order;
 import project.EE.model.repository.CarRepository;
 import project.EE.service.CarService;
 import project.EE.service.CarStatusService;
-import project.EE.service.OrderService;
 
 import java.util.List;
 
@@ -17,7 +15,6 @@ import java.util.List;
 public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
     private final CarStatusService carStatusService;
-    private final OrderService orderService;
 
     @Override
     public List<Car> findAllWithoutRepairStatus() {
@@ -30,10 +27,9 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void updateCarStatus(Integer orderId, Integer carStatusId) {
-        Order order = orderService.findById(orderId);
+    public void updateCarStatus(Integer carId, Integer carStatusId) {
+        Car car = carRepository.getById(carId);
         CarStatus carStatus = carStatusService.findById(carStatusId);
-        Car car = order.getCar();
         car.setCarStatus(carStatus);
         carRepository.save(car);
     }

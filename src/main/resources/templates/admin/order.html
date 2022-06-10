@@ -32,6 +32,7 @@
     <p> <form th:method="POST" th:action="@{/admin/order}">
         <input type="hidden" name="order" th:value="${order.getId()}">
         <input type="hidden" name="status" th:value="8">
+        <input type="hidden" name="car" th:value="${order.getCar().getId()}">
         <input type="hidden" name="carStatus" th:value="1">
         <button>To "reject" status</button>
     </form></p>
@@ -43,12 +44,20 @@
         <button>To "active" status</button>
     </form></p>
 </div>
-<div th:if="${order.getOrderStatus().getId()} eq '3' or ${order.getOrderStatus().getId()} eq '5'">
+<div th:if="${order.getOrderStatus().getId()} eq '3'">
     <form th:method="POST" th:action="@{/admin/order}">
         <input type="hidden" name="order" th:value="${order.getId()}">
         <input type="hidden" name="status" th:value="4">
+        <input type="hidden" name="car" th:value="${order.getCar().getId()}">
         <input type="hidden" name="carStatus" th:value="1">
         <button>To "completed" status</button>
+    </form>
+</div>
+<div th:if="${order.getOrderStatus().getId()} eq '5'">
+    <form th:method="POST" th:action="@{/admin/order}">
+        <input type="hidden" name="order" th:value="${order.getId()}">
+        <input type="hidden" name="status" th:value="4">
+        <button>From "incident" to "completed" status</button>
     </form>
 </div>
 <div th:if="${order.getOrderStatus().getId()} eq '3'">

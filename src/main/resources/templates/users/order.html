@@ -28,6 +28,7 @@
         <form th:action="@{/orders/payment}" target="_blank">
             <input type="hidden" name="order" th:value="${order.getId()}">
             <input type="hidden" name="status" th:value="7">
+            <input type="hidden" name="car" th:value="${order.getCar().getId()}">
             <input type="hidden" name="carStatus" th:value="2">
             <button type="submit"> Pay </button>
         </form>
@@ -38,6 +39,8 @@
         <form th:method="POST" th:action="@{/orders/cancel}">
             <input type="hidden" name="order" th:value="${order.getId()}">
             <input type="hidden" name="status" th:value="6">
+            <input type="hidden" name="car" th:value="${order.getCar().getId()}">
+            <input type="hidden" name="carStatus" th:value="1">
             <button>Cancel the order</button>
         </form>
     </div>
