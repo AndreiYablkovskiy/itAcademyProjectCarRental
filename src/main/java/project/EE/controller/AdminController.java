@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import project.EE.model.entity.Order;
 import project.EE.model.entity.OrderStatus;
 import project.EE.model.entity.User;
+import project.EE.service.CarService;
 import project.EE.service.OrderService;
 import project.EE.service.OrderStatusService;
 import project.EE.service.UserService;
@@ -24,6 +25,7 @@ public class AdminController {
     private final OrderStatusService orderStatusService;
     private final OrderService orderService;
     private final UserService userService;
+    private final CarService carService;
 
     @GetMapping("/orders")
     public String getAllOrders(@RequestParam(required = false) Integer statusId, Model model) {
@@ -47,15 +49,18 @@ public class AdminController {
     }
 
     @PostMapping("/order")
-    public String updateOrderStatus (@RequestParam("order") Integer orderId, @RequestParam("status") Integer statusId, Principal principal){
+    public String updateOrderAndCarStatus (@RequestParam("order") Integer orderId, @RequestParam("status") Integer statusId
+            ,@RequestParam("carStatus") Integer carStatusId, Principal principal){
         String employeeName = principal.getName();
         orderService.updateOrderStatus(orderId, statusId, employeeName);
+        carService.updateCarStatus(orderId, carStatusId);
         return "redirect:/admin/order?id="+ orderId;
     }
 
     @PostMapping("/order/info")
-    public String updateOrderInfo (@RequestParam("order") Integer orderId, @RequestParam("info") String orderInfo){
-        orderService.updateOrderInfo(orderId, orderInfo);
+    public String updateOrderInfo (@RequestParam("order") Integer orderId, @RequestParam("info") String orderInfo, Principal principal){
+        User employee = userService.findByUsername(principal.getName());
+        orderService.updateOrderInfo(orderId, orderInfo, employee);
         return "redirect:/admin/order?id="+ orderId;
     }
 

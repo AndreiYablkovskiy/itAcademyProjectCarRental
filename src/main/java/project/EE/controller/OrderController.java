@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.EE.model.entity.Order;
+import project.EE.service.CarService;
 import project.EE.service.OrderService;
 import java.security.Principal;
 
@@ -13,6 +14,7 @@ import java.security.Principal;
 @RequestMapping("/orders")
 public class OrderController {
     private final OrderService orderService;
+    private final CarService carService;
 
     @GetMapping("/new")
     public String newOrder (@RequestParam("id") Integer carId, Model model) {
@@ -38,7 +40,9 @@ public class OrderController {
     }
 
     @GetMapping("/payment")
-    public String payTheOrder(@RequestParam("order") Integer orderId, @RequestParam("status") Integer statusId){
+    public String payTheOrder(@RequestParam("order") Integer orderId, @RequestParam("status") Integer statusId
+            ,@RequestParam("carStatus") Integer carStatusId){
+        carService.updateCarStatus(orderId,carStatusId);
         orderService.updateOrderStatus(orderId, statusId);
         return "orders/payment";
     }

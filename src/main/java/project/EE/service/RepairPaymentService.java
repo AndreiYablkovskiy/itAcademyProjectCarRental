@@ -4,4 +4,5 @@ import project.EE.model.entity.RepairPayment;
 
 public interface RepairPaymentService {
     void save(RepairPayment repairPayment);
+    RepairPayment findById(Integer id);
 }

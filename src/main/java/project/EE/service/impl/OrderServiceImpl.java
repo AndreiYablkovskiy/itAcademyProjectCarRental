@@ -40,6 +40,7 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderDate(LocalDateTime.now().withNano(0));
         order.setRentalStart(LocalDateTime.parse(rentalStart));
         order.setRentalEnd(LocalDateTime.parse(rentalEnd));
+        order.setOrderInfo(" ");
         Duration duration = Duration.between(order.getRentalStart(), order.getRentalEnd());
         long rentalDuration = duration.toHours();
         order.setPaymentValue(order.getCar().getCostForOneHour() * rentalDuration);
@@ -71,9 +72,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrderInfo(Integer orderId, String orderInfo) {
+    public void updateOrderInfo(Integer orderId, String orderInfo, User employee) {
         Order order = orderRepository.getById(orderId);
-        order.setOrderInfo(order.getOrderInfo()+ " " +orderInfo);
+        order.setOrderInfo(order.getOrderInfo()+ " @"+employee.getFirstname()+ " " +employee.getSurname()+ ": " +orderInfo);
         orderRepository.save(order);
     }
 

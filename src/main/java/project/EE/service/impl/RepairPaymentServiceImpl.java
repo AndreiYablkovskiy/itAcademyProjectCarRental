@@ -15,4 +15,9 @@ public class RepairPaymentServiceImpl implements RepairPaymentService {
     public void save(RepairPayment repairPayment) {
         repairPaymentRepository.save(repairPayment);
     }
+
+    @Override
+    public RepairPayment findById(Integer id) {
+        return repairPaymentRepository.getById(id);
+    }
 }

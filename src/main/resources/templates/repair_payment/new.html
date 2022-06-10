@@ -7,15 +7,16 @@
 </head>
 <body>
 <h3>
-    <form th:method="POST" th:action="@{/repair_payment/create}" th:object="${repairPayment}">
+    <form th:method="POST" th:action="@{/repair_payment/new}" th:object="${repairPayment}">
         <label for="value"> Enter repair value: </label>
         <input type="number" th:field="*{value}" id="value">
         <div style="color:red" th:if="${#fields.hasErrors('value')}" th:errors="*{value}">Value error</div>
         <p><label for="description"> Description: </label></p>
         <textarea rows="15" cols="45" id="description" th:field="*{description}" placeholder="Add description" ></textarea>
         <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Value error</div>
-        <p><input type="submit" value="Create"/></p>
         <input type="hidden" name="order" th:value="${repairPayment.getOrder().getId()}">
+        <input type="hidden" name="carStatus" th:value="3">
+        <p><input type="submit" value="Create"/></p>
     </form>
 </h3>
 

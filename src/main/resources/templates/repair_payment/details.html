@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Repair payment</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<h3> Repair payment number: <span style="color:navy" th:text="${repairPayment.getId()}"></span></h3>
+<h3> Value: <span style="color:navy" th:text="${repairPayment.getValue()}"></span></h3>
+<h3><b> Description: </b><span style="color:navy" th:text="${repairPayment.getDescription()}"></span></h3>
+</body>
+</html>

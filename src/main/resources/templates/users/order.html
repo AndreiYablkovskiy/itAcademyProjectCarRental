@@ -18,11 +18,17 @@
         th:text="${order.getCar().getModel()}"></span></h3>
 <h3><b> Payment value: </b><span style="color:navy" th:text="${order.getPaymentValue}"></span></h3>
 <h3><b> Username: </b><span style="color:navy" th:text="${order.getUser().getUsername()}"></span></h3>
+<p>-----------------------------------------------------------------------------</p>
+<h3><div th:each="repairPayment : ${order.getRepairPayments()}">
+    Repair payment number: <a th:href="@{/repair_payment/details/?id={id}(id=${repairPayment.getId()})}" th:text="${repairPayment.getId()}" target="_blank">payment</a>
+</div> </h3>
+<p>-----------------------------------------------------------------------------</p>
 <h3>
     <div th:if="${order.getOrderStatus().getId()} eq '1'">
         <form th:action="@{/orders/payment}" target="_blank">
             <input type="hidden" name="order" th:value="${order.getId()}">
             <input type="hidden" name="status" th:value="7">
+            <input type="hidden" name="carStatus" th:value="2">
             <button type="submit"> Pay </button>
         </form>
     </div>
