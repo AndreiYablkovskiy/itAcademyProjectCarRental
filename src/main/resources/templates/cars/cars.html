@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Cars page</title>
@@ -7,13 +7,21 @@
 </head>
 <body>
 <h3>
+    <form th:method="GET" th:action="@{/cars}">
+        <select name="statusId" >
+            <option value="10">Select car status</option>
+            <option th:each="status : ${statuses}" th:value="${status.getId()}" th:text="${status.getName()}"></option>
+            <option style="color:red" sec:authorize="hasRole('ADMIN')" value="3" th:text="repair"></option>
+            <option value="0" th:text="all"></option>
+        </select>
+        <button>Filter</button>
+    </form>
     <div th:each="cars : ${cars}">
         <a th:href="@{car?id={id}(id=${cars.getId()})}" th:text="${cars.getMark()}">car</a>
     </div>
-    <p></p>
-    <div>
+    <p>
         <a th:href="@{/}"> To main page </a>
-    </div>
+    </p>
 </h3>
 </body>
 </html>

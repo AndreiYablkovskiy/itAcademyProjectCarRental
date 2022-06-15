@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
-    <title>Cars page</title>
+    <title>Home page</title>
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
@@ -10,7 +10,7 @@
 <h3><b> Firstname: </b><span style="color:navy" th:text="${user.getFirstname()}"></span></h3>
 <h3><b> Surname: </b><span style="color:navy" th:text="${user.getSurname()}"></span></h3>
 <h3><b> Passport number: </b><span style="color:navy" th:text="${user.getPassportNumber()}"></span></h3>
-<form th:method="GET" th:action="@{/users/account/edit}">
+<form sec:authorize="hasRole('USER')" th:method="GET" th:action="@{/users/account/edit}">
     <input type="hidden" name="id" th:value="${user.getId()}">
     <button>Edit profile</button>
 </form>

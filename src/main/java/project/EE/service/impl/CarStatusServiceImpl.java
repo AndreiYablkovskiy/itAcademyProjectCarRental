@@ -6,6 +6,8 @@ import project.EE.model.entity.CarStatus;
 import project.EE.model.repository.CarStatusRepository;
 import project.EE.service.CarStatusService;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CarStatusServiceImpl implements CarStatusService {
@@ -15,4 +17,15 @@ public class CarStatusServiceImpl implements CarStatusService {
     public CarStatus findById(Integer id) {
         return carStatusRepository.getById(id);
     }
+
+    @Override
+    public List<CarStatus> findAll() {
+        return carStatusRepository.findAll();
+    }
+
+    @Override
+    public List<CarStatus> findAllWithoutRepairStatus() {
+        return carStatusRepository.findByNameNot("repair");
+    }
+
 }

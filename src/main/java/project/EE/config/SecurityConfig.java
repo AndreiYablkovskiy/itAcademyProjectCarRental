@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/users/login","/users/registration/").not().fullyAuthenticated()
 //                .antMatchers("users/logout", "users/profile/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/cars/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/cars/**").authenticated()
                 .antMatchers("/users/**").hasAnyRole("USER", "ADMIN")
 //                .anyRequest().authenticated();
                .and()

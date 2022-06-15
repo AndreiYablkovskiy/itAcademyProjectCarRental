@@ -1,9 +1,11 @@
 package project.EE.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import project.EE.model.entity.Car;
 import project.EE.model.entity.CarStatus;
+import project.EE.model.entity.Order;
 import project.EE.model.repository.CarRepository;
 import project.EE.service.CarService;
 import project.EE.service.CarStatusService;
@@ -33,4 +35,10 @@ public class CarServiceImpl implements CarService {
         car.setCarStatus(carStatus);
         carRepository.save(car);
     }
+
+    @Override
+    public List<Car> getByStatusId(Integer id) {
+        return carRepository.findByCarStatusId(id);
+    }
+
 }

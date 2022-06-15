@@ -9,23 +9,23 @@
 <h1><b>Welcome to the car rental website</b></h1>
 <h3>
     <div>
-        <a th:href="@{/users/login}">Login</a>
+        <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
     </div>
     <div>
-        <a th:href="@{users/registration}">Registration</a>
+        <a sec:authorize="!isAuthenticated()" th:href="@{users/registration}">Registration</a>
     </div>
     <div>
-        <a href="/logout"> Logout </a>
+        <a href="/logout" sec:authorize="isAuthenticated()"> Logout </a>
     </div>
     <div>
-        <a th:href="@{/cars}"> Cars </a>
+        <a th:href="@{/cars?statusId=0}"> Cars </a>
     </div>
     <div>
-        <a th:href="@{/users/account}"> User account </a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/users/account}"> User account </a>
     </div>
     <div>
         <p></p>
-        <a th:href="@{/admin/orders?statusId=7}"> For admins </a>
+        <a th:href="@{/admin/orders?statusId=7}" sec:authorize="hasRole('ADMIN')"> For admins </a>
     </div>
 </h3>
 </body>

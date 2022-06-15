@@ -16,6 +16,7 @@ import project.EE.service.OrderStatusService;
 import project.EE.service.UserService;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,11 +31,11 @@ public class AdminController {
     @GetMapping("/orders")
     public String getAllOrders(@RequestParam(required = false) Integer statusId, Model model) {
         List<Order> orders;
-        if(statusId.equals(0)) {
-            orders = orderService.getAllOrders();
-        }else {
-            orders = orderService.getByStatusId(statusId);
-        }
+            if (statusId.equals(0)) {
+                orders = orderService.getAllOrders();
+            } else {
+                orders = orderService.getByStatusId(statusId);
+            }
         model.addAttribute("orders", orders);
         List<OrderStatus> orderStatuses = orderStatusService.findAll();
         model.addAttribute("statuses", orderStatuses);
@@ -44,7 +45,10 @@ public class AdminController {
     @GetMapping("/order")
     public String getOrderById (@RequestParam Integer id, Model model){
         Order order = orderService.findById(id);
-        model.addAttribute("order", order);
+        if(order == null){
+            return "admin/notfound";
+        }
+            model.addAttribute("order", order);
         return "admin/order";
     }
 
@@ -74,6 +78,7 @@ public class AdminController {
         model.addAttribute("orders", userOrders);
         return "admin/user";
     }
+
 }
 
 

@@ -10,6 +10,10 @@
     <div th:each="order : ${orders}">
         <a th:href="@{/admin/order?id={id}(id=${order.getId()})}" th:text="${order.getId()}">order</a>
     </div>
+    <form th:method="GET" th:action="@{/admin/order}" >
+        <input type="text" value=" " name="id" id="id">
+        <input type="submit" value="Find by order number"/>
+    </form>
     <form th:method="GET" th:action="@{/admin/orders}">
         <select name="statusId" id="statusId">
             <option value="10">Select order status</option>
