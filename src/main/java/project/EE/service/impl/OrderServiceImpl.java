@@ -18,6 +18,7 @@ import java.security.Principal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -30,22 +31,28 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public void crateNewOrder(Integer carId, String rentalStart, String rentalEnd, Principal principal) {
-        OrderStatus orderStatus = orderStatusService.findById(1);
-        User user = userService.findByUsername(principal.getName());
-        Car car = carService.findById(carId);
-        Order order = new Order();
-        order.setUser(user);
-        order.setCar(car);
-        order.setOrderStatus(orderStatus);
-        order.setOrderDate(LocalDateTime.now().withNano(0));
-        order.setRentalStart(LocalDateTime.parse(rentalStart));
-        order.setRentalEnd(LocalDateTime.parse(rentalEnd));
-        order.setOrderInfo(" ");
-        Duration duration = Duration.between(order.getRentalStart(), order.getRentalEnd());
-        long rentalDuration = duration.toHours();
-        order.setPaymentValue(order.getCar().getCostForOneHour() * rentalDuration);
-        orderRepository.save(order);
+    public boolean crateNewOrder(Integer carId, String rentalStart, String rentalEnd, Principal principal) {
+        LocalDateTime start = LocalDateTime.parse(rentalStart);
+        LocalDateTime end = LocalDateTime.parse(rentalEnd);
+        if(start.isAfter(end) || start.isBefore(LocalDateTime.now())){
+            return false;
+        }
+            OrderStatus orderStatus = orderStatusService.findById(1);
+            User user = userService.findByUsername(principal.getName());
+            Car car = carService.findById(carId);
+            Order order = new Order();
+            order.setUser(user);
+            order.setCar(car);
+            order.setOrderStatus(orderStatus);
+            order.setOrderDate(LocalDateTime.now().withNano(0));
+            order.setRentalStart(start);
+            order.setRentalEnd(end);
+            order.setOrderInfo(" ");
+            Duration duration = Duration.between(order.getRentalStart(), order.getRentalEnd());
+            long rentalDuration = duration.toHours();
+            order.setPaymentValue(order.getCar().getCostForOneHour() * rentalDuration);
+            orderRepository.save(order);
+            return true;
     }
 
     @Override
@@ -90,7 +97,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findById(Integer id) {
-      return   orderRepository.getById(id);
+    public Optional<Order> findById(Integer id) {
+      return   orderRepository.findById(id);
     }
 }

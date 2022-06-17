@@ -16,8 +16,8 @@ import project.EE.service.OrderStatusService;
 import project.EE.service.UserService;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -43,12 +43,17 @@ public class AdminController {
     }
 
     @GetMapping("/order")
-    public String getOrderById (@RequestParam Integer id, Model model){
-        Order order = orderService.findById(id);
-        if(order == null){
-            return "admin/notfound";
+    public String getOrderById (@RequestParam(required = false) Integer id, Model model){
+        if(id == null){
+            model.addAttribute("EmptyNumber","The number should not be empty");
+            return "admin/orders";
         }
-            model.addAttribute("order", order);
+        Optional<Order> order = orderService.findById(id);
+        if(order.isEmpty()){
+            model.addAttribute("orderNotFound", "Order not found");
+            return "admin/orders";
+        }
+        model.addAttribute("order", order.get());
         return "admin/order";
     }
 

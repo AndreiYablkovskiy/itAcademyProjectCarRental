@@ -53,11 +53,11 @@ public class UserController {
     @PostMapping("/account/edit")
     public String editAccount (@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "redirect:users/account/edit";
+            return "users/edit";
         }
         if (!userService.updateUser(user)){
             model.addAttribute("usernameAlreadyExist", "A user with the same name already exists");
-            return "redirect:users/account/edit";
+            return "users/edit";
         }
         return "redirect:/logout";
     }

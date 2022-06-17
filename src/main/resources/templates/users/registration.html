@@ -7,6 +7,7 @@
 </head>
 <body>
 <h3>
+    <p th:if="${usernameAlreadyExist}" style="color:red" th:text="${usernameAlreadyExist}"></p>
     <form th:method="POST" th:action="@{/users/registration}" th:object="${user}">
         <label for="username"> Enter username: </label>
         <input type="text" th:field="*{username}" id="username">
@@ -32,7 +33,7 @@
         <br/>
         <input type="submit" value="Create"/>
     </form>
-</h3>
+<a th:href="@{/}"> To main page </a></h3>
 
 </body>
 </html>

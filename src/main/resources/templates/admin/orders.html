@@ -7,11 +7,13 @@
 </head>
 <body>
 <h3>
+    <p th:if="${orderNotFound}" style="color:red" th:text="${orderNotFound}"></p>
+    <p th:if="${EmptyNumber}" style="color:red" th:text="${EmptyNumber}"></p>
     <div th:each="order : ${orders}">
         <a th:href="@{/admin/order?id={id}(id=${order.getId()})}" th:text="${order.getId()}">order</a>
     </div>
     <form th:method="GET" th:action="@{/admin/order}" >
-        <input type="text" value=" " name="id" id="id">
+        <input type="text" placeholder="order number" name="id" id="id">
         <input type="submit" value="Find by order number"/>
     </form>
     <form th:method="GET" th:action="@{/admin/orders}">

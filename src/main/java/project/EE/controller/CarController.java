@@ -6,9 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.EE.model.entity.Car;
 import project.EE.model.entity.CarStatus;
-import project.EE.model.entity.Order;
-import project.EE.model.entity.OrderStatus;
-import project.EE.model.repository.CarStatusRepository;
 import project.EE.service.CarService;
 import project.EE.service.CarStatusService;
 

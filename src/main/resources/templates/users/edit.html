@@ -7,6 +7,7 @@
 </head>
 <body>
 <h3>
+    <p th:if="${usernameAlreadyExist}" style="color:red" th:text="${usernameAlreadyExist}"></p>
     <form th:method="POST" th:action="@{/users/account/edit}" th:object="${user}">
         <input type="hidden" id="id" th:field="*{id}"/>
         <label for="username"> Edit username: </label>
@@ -33,6 +34,7 @@
         <br/>
         <input type="submit" value="Submit"/>
     </form>
+   <p> <a  th:href="@{/users/account}"> Back to account </a></p>
 </h3>
 </body>
 </html>

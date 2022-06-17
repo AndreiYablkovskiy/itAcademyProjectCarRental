@@ -25,7 +25,7 @@ public class RepairPaymentController {
     @GetMapping("/new")
     String createRepairPayment(@RequestParam("order") Integer orderId, Model model){
         RepairPayment repairPayment = new RepairPayment();
-        Order order = orderService.findById(orderId);
+        Order order = orderService.findById(orderId).get();
         repairPayment.setOrder(order);
         model.addAttribute("repairPayment", repairPayment);
         return "repair_payment/new";

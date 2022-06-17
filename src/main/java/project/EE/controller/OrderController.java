@@ -18,18 +18,24 @@ public class OrderController {
 
     @GetMapping("/new")
     public String newOrder (@RequestParam("id") Integer carId, Model model) {
-        model.addAttribute("carId", carId);
+        model.addAttribute("id", carId);
         return "orders/new";
     }
 
     @PostMapping("/new")
-    public String createOrder (@RequestParam Integer carId, @RequestParam() String rentalStart
-            ,@RequestParam() String rentalEnd, Principal principal) {
+    public String createOrder (@RequestParam("id") Integer carId, @RequestParam() String rentalStart
+            ,@RequestParam() String rentalEnd, Principal principal, Model model) {
         if (rentalStart == "" || rentalEnd == "") {
-            return "redirect:/car?id=" + carId;
+            model.addAttribute("timeIsEmpty", "Time should not be empty");
+            model.addAttribute("id", carId);
+            return "orders/new";
         }
-        orderService.crateNewOrder(carId, rentalStart, rentalEnd, principal);
-        return "redirect:/orders/created";
+        if(orderService.crateNewOrder(carId, rentalStart, rentalEnd, principal)){
+            return "redirect:/orders/created";
+        }
+        model.addAttribute("wrongRentalDate", "Rental start should not be after rental end and cannot be in past");
+        model.addAttribute("id", carId);
+        return "orders/new";
     }
 
     @GetMapping("/created")

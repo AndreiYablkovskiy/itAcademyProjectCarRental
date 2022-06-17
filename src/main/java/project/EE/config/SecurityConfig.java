@@ -20,12 +20,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-//                .antMatchers("/users/login","/users/registration/").not().fullyAuthenticated()
-//                .antMatchers("users/logout", "users/profile/**").authenticated()
+                .antMatchers("/users/login","/users/registration/").not().fullyAuthenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/cars/**").authenticated()
+                .antMatchers("/","/cars", "/car", "/users/registration").permitAll()
                 .antMatchers("/users/**").hasAnyRole("USER", "ADMIN")
-//                .anyRequest().authenticated();
+               .anyRequest().authenticated()
                .and()
               .formLogin();
 //                .defaultSuccessUrl("/users/success")

@@ -7,8 +7,10 @@
 </head>
 <body>
 <h3>
+    <p th:if="${timeIsEmpty}" style="color:red" th:text="${timeIsEmpty}"></p>
+    <p th:if="${wrongRentalDate}" style="color:red" th:text="${wrongRentalDate}"></p>
     <form th:method="POST" th:action="@{/orders/new}">
-        <input type="hidden" name="carId" th:value="${carId}"/>
+        <input type="hidden" name="id" th:value="${id}"/>
         <label for="rentalStart"> Select rental start date and time: </label>
         <input type="datetime-local" name="rentalStart" id="rentalStart"/>
         <br/>
@@ -17,6 +19,7 @@
         <br/>
         <input type="submit" value="Create new order"/>
     </form>
+    <p> <a th:href="@{/car?id={id}(id=${id})}">Back to car</a></p>
 </h3>
 
 </body>

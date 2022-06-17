@@ -3,6 +3,8 @@ package project.EE.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Past;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,11 +25,9 @@ public class Order {
     private LocalDateTime orderDate;
 
     @Column(name ="rental_start")
-   // @Future(message = "Rental date cannot be past")
     private LocalDateTime rentalStart;
 
     @Column(name ="rental_end")
-   // @Future(message = "Rental date cannot be past")
     private LocalDateTime rentalEnd;
 
     @Column(name = "payment_value")

@@ -21,7 +21,7 @@
         <a th:href="@{/cars?statusId=0}"> Cars </a>
     </div>
     <div>
-        <a sec:authorize="isAuthenticated()" th:href="@{/users/account}"> User account </a>
+        <a sec:authorize="isAuthenticated() and !hasRole('ADMIN')" th:href="@{/users/account}"> User account </a>
     </div>
     <div>
         <p></p>
