@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import project.EE.model.entity.Order;
 import project.EE.model.entity.OrderStatus;
 import project.EE.model.entity.User;
-import project.EE.service.CarService;
 import project.EE.service.OrderService;
 import project.EE.service.OrderStatusService;
 import project.EE.service.UserService;
@@ -26,16 +25,10 @@ public class AdminController {
     private final OrderStatusService orderStatusService;
     private final OrderService orderService;
     private final UserService userService;
-    private final CarService carService;
 
     @GetMapping("/orders")
     public String getAllOrders(@RequestParam(required = false) Integer statusId, Model model) {
-        List<Order> orders;
-            if (statusId.equals(0)) {
-                orders = orderService.getAllOrders();
-            } else {
-                orders = orderService.getByStatusId(statusId);
-            }
+        List<Order> orders = orderService.getOrdersByStatus(statusId);
         model.addAttribute("orders", orders);
         List<OrderStatus> orderStatuses = orderStatusService.findAll();
         model.addAttribute("statuses", orderStatuses);
@@ -60,26 +53,21 @@ public class AdminController {
     @PostMapping("/order")
     public String updateOrderAndCarStatus (@RequestParam("order") Integer orderId, @RequestParam("status") Integer statusId
             ,@RequestParam(value = "carStatus", required = false) Integer carStatusId, @RequestParam(value = "car", required = false) Integer carId, Principal principal){
-        String employeeName = principal.getName();
-        orderService.updateOrderStatus(orderId, statusId, employeeName);
-        if (carStatusId != null && carId != null) {
-            carService.updateCarStatus(carId, carStatusId);
-        }
+       orderService.updateOrderAndCarStatuses(carId, carStatusId, orderId, statusId, principal);
         return "redirect:/admin/order?id="+ orderId;
     }
 
     @PostMapping("/order/info")
     public String updateOrderInfo (@RequestParam("order") Integer orderId, @RequestParam("info") String orderInfo, Principal principal){
-        User employee = userService.findByUsername(principal.getName());
-        orderService.updateOrderInfo(orderId, orderInfo, employee);
+        orderService.updateOrderInfo(orderId, orderInfo, principal);
         return "redirect:/admin/order?id="+ orderId;
     }
 
     @GetMapping("/user")
     public String account (@RequestParam String username, Model model){
         User user = userService.findByUsername(username);
-        List<Order> userOrders = userService.findOrdersByUserId(user.getId());
         model.addAttribute("user", user);
+        List<Order> userOrders = userService.findOrdersByUserId(user.getId());
         model.addAttribute("orders", userOrders);
         return "admin/user";
     }

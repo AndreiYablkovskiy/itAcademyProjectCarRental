@@ -3,6 +3,7 @@ package project.EE.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.EE.model.entity.Car;
 import project.EE.model.entity.CarStatus;
 import project.EE.model.entity.Order;
@@ -29,6 +30,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    @Transactional
     public void updateCarStatus(Integer carId, Integer carStatusId) {
         Car car = carRepository.getById(carId);
         CarStatus carStatus = carStatusService.findById(carStatusId);
@@ -39,6 +41,17 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<Car> getByStatusId(Integer id) {
         return carRepository.findByCarStatusId(id);
+    }
+
+    @Override
+    public List<Car> getCarsByStatusId(Integer statusId) {
+        List<Car> cars;
+        if (statusId.equals(0)) {
+            cars = findAllWithoutRepairStatus();
+        } else {
+            cars = getByStatusId(statusId);
+        }
+        return cars;
     }
 
 }

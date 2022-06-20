@@ -13,19 +13,13 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping()
 public class CarController {
     private final CarService carService;
     private final CarStatusService carStatusService;
 
     @GetMapping("/cars")
     public String getCars(@RequestParam(required = false) Integer statusId, Model model) {
-        List<Car> cars;
-        if (statusId.equals(0)) {
-            cars = carService.findAllWithoutRepairStatus();
-        } else {
-            cars = carService.getByStatusId(statusId);
-        }
+        List<Car> cars = carService.getCarsByStatusId(statusId);
         model.addAttribute("cars", cars);
         List<CarStatus> carStatuses = carStatusService.findAllWithoutRepairStatus();
         model.addAttribute("statuses", carStatuses);

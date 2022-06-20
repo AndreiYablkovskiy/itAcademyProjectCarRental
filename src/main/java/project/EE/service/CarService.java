@@ -10,4 +10,5 @@ public interface CarService {
     Car findById(Integer id);
     void updateCarStatus(Integer carId, Integer carStatusId);
     List<Car> getByStatusId(Integer id);
+    List<Car> getCarsByStatusId(Integer statusId);
 }

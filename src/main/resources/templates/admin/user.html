@@ -11,6 +11,7 @@
 <h3><b> Firstname: </b><span style="color:navy" th:text="${user.getFirstname()}"></span></h3>
 <h3><b> Surname: </b><span style="color:navy" th:text="${user.getSurname()}"></span></h3>
 <h3><b> Passport number: </b><span style="color:navy" th:text="${user.getPassportNumber()}"></span></h3>
+<h3><b> Email: </b><span style="color:navy" th:text="${user.getEmail()}"></span></h3>
 <h2><b>User orders:</b></h2>
 <div th:each="orders : ${orders}">
     <h3> Number <i><a style="color:navy" th:href="@{/admin/order?id={id}(id=${orders.getId()})}" th:text="${orders.getId()}"></a></i>

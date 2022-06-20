@@ -17,6 +17,17 @@
     <h3><b> Car mark and model: </b><span style="color:navy" th:text="${order.getCar().getMark()}"></span> <span style="color:navy" th:text="${order.getCar().getModel()}"></span> </h3>
     <h3><b> Payment value: </b><span style="color:navy" th:text="${order.getPaymentValue}"></span> </h3>
     <h3><b> Username: </b><span style="color:navy" th:text="${#authentication.getPrincipal().getUsername()}"></span> </h3>
+    <h3>
+        <div>
+            <form th:action="@{/orders/payment}">
+                <input type="hidden" name="order" th:value="${order.getId()}">
+                <input type="hidden" name="status" th:value="7">
+                <input type="hidden" name="car" th:value="${order.getCar().getId()}">
+                <input type="hidden" name="carStatus" th:value="2">
+                <button type="submit"> Pay </button>
+            </form>
+        </div>
+    </h3>
     <h3> <a th:href="@{/users/order?id={id}(id=${order.getId()})}"> To created order </a></h3>
     <h3> <a th:href="@{/}"> To main page </a></h3>
 </body>

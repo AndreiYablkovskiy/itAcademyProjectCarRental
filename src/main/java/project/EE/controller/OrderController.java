@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.EE.model.entity.Order;
-import project.EE.service.CarService;
 import project.EE.service.OrderService;
 import java.security.Principal;
 
@@ -14,7 +13,6 @@ import java.security.Principal;
 @RequestMapping("/orders")
 public class OrderController {
     private final OrderService orderService;
-    private final CarService carService;
 
     @GetMapping("/new")
     public String newOrder (@RequestParam("id") Integer carId, Model model) {
@@ -25,7 +23,7 @@ public class OrderController {
     @PostMapping("/new")
     public String createOrder (@RequestParam("id") Integer carId, @RequestParam() String rentalStart
             ,@RequestParam() String rentalEnd, Principal principal, Model model) {
-        if (rentalStart == "" || rentalEnd == "") {
+        if (rentalStart.isEmpty() || rentalEnd.isEmpty()) {
             model.addAttribute("timeIsEmpty", "Time should not be empty");
             model.addAttribute("id", carId);
             return "orders/new";
@@ -39,7 +37,7 @@ public class OrderController {
     }
 
     @GetMapping("/created")
-    public String showCreatedOrder(Principal principal, Model model){
+    public String createdOrder(Principal principal, Model model){
         Order order = orderService.showNewOrder(principal);
         model.addAttribute("order", order);
         return "orders/created";
@@ -48,16 +46,14 @@ public class OrderController {
     @GetMapping("/payment")
     public String payTheOrder(@RequestParam("order") Integer orderId, @RequestParam("status") Integer statusId
             ,@RequestParam("carStatus") Integer carStatusId, @RequestParam("car") Integer carId){
-        carService.updateCarStatus(carId,carStatusId);
-        orderService.updateOrderStatus(orderId, statusId);
+        orderService.updateOrderAndCarStatuses(carId, carStatusId, orderId, statusId);
         return "orders/payment";
     }
 
     @PostMapping("/cancel")
     public String cancelOrder(@RequestParam("order") Integer orderId, @RequestParam("status") Integer statusId
             ,@RequestParam(value = "carStatus") Integer carStatusId, @RequestParam(value = "car") Integer carId){
-        carService.updateCarStatus(carId,carStatusId);
-        orderService.updateOrderStatus(orderId, statusId);
+        orderService.updateOrderAndCarStatuses(carId, carStatusId, orderId, statusId);
         return "redirect:/users/account";
     }
 }

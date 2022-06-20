@@ -3,16 +3,13 @@ package project.EE.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.EE.model.entity.Car;
 import project.EE.model.entity.Order;
 import project.EE.model.entity.OrderStatus;
 import project.EE.model.entity.User;
-import project.EE.model.repository.CarRepository;
 import project.EE.model.repository.OrderRepository;
-import project.EE.service.CarService;
-import project.EE.service.OrderService;
-import project.EE.service.OrderStatusService;
-import project.EE.service.UserService;
+import project.EE.service.*;
 
 import java.security.Principal;
 import java.time.Duration;
@@ -24,13 +21,16 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
+    public static final int ORDER_STATUS_ALL = 0;
     private final OrderRepository orderRepository;
     private final OrderStatusService orderStatusService;
     private final UserService userService;
     private final CarService carService;
+    private final EmailSenderService emailSenderService;
 
 
     @Override
+    @Transactional
     public boolean crateNewOrder(Integer carId, String rentalStart, String rentalEnd, Principal principal) {
         LocalDateTime start = LocalDateTime.parse(rentalStart);
         LocalDateTime end = LocalDateTime.parse(rentalEnd);
@@ -52,6 +52,8 @@ public class OrderServiceImpl implements OrderService {
             long rentalDuration = duration.toHours();
             order.setPaymentValue(order.getCar().getCostForOneHour() * rentalDuration);
             orderRepository.save(order);
+            emailSenderService.sendEmail(user.getEmail(),"Order number " +order.getId().toString()
+            ,"Your order has been successfully created.");
             return true;
     }
 
@@ -63,6 +65,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void updateOrderStatus(Integer orderId, Integer statusId) {
         Order order = orderRepository.getById(orderId);
         OrderStatus orderStatus = orderStatusService.findById(statusId);
@@ -71,7 +74,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrderStatus(Integer orderId, Integer statusId, String employeeName) {
+    @Transactional
+    public void updateOrderStatus(Integer orderId, Integer statusId, Principal principal) {
+        String employeeName = principal.getName();
         Order order = orderRepository.getById(orderId);
         OrderStatus orderStatus = orderStatusService.findById(statusId);
         order.setOrderStatus(orderStatus);
@@ -80,7 +85,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrderInfo(Integer orderId, String orderInfo, User employee) {
+    @Transactional
+    public void updateOrderInfo(Integer orderId, String orderInfo, Principal principal) {
+        User employee = userService.findByUsername(principal.getName());
         Order order = orderRepository.getById(orderId);
         order.setOrderInfo(order.getOrderInfo()+ " @"+employee.getFirstname()+ " " +employee.getSurname()+ ": " +orderInfo);
         orderRepository.save(order);
@@ -99,5 +106,30 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Optional<Order> findById(Integer id) {
       return   orderRepository.findById(id);
+    }
+
+    @Override
+    public void updateOrderAndCarStatuses(Integer carId, Integer carStatusId, Integer orderId, Integer statusId) {
+        updateOrderStatus(orderId, statusId);
+        carService.updateCarStatus(carId,carStatusId);
+    }
+
+    @Override
+    public void updateOrderAndCarStatuses(Integer carId, Integer carStatusId, Integer orderId, Integer statusId, Principal principal) {
+        updateOrderStatus(orderId, statusId, principal);
+        if (carStatusId != null && carId != null) {
+            carService.updateCarStatus(carId, carStatusId);
+        }
+    }
+
+    @Override
+    public List<Order> getOrdersByStatus(Integer statusId) {
+        List<Order> orders;
+        if (statusId.equals(ORDER_STATUS_ALL)) {
+            orders = getAllOrders();
+        } else {
+            orders = getByStatusId(statusId);
+        }
+        return orders;
     }
 }

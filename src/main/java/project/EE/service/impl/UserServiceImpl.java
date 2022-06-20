@@ -25,29 +25,32 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+    public static final String ROLE_USER = "ROLE_USER";
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final Encoder encoder;
 
     @Override
+    @Transactional
     public boolean saveUser(User user) {
         User userFromDB = userRepository.findByUsername((user.getUsername()));
         if (userFromDB != null) {
            return false;
         }
-        user.setRoles(Collections.singletonList(new Role(1, "ROLE_USER")));
+        user.setRoles(Collections.singletonList(new Role(1, ROLE_USER)));
         user.setPassword(encoder.bCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
         return true;
     }
 
     @Override
+    @Transactional
     public boolean updateUser(User user) {
         User userFromDB = userRepository.findByUsername((user.getUsername()));
         if (userFromDB != null) {
             return false;
         }
-        user.setRoles(Collections.singletonList(new Role(1, "ROLE_USER")));
+        user.setRoles(Collections.singletonList(new Role(1, ROLE_USER)));
         user.setPassword(encoder.bCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
         return true;

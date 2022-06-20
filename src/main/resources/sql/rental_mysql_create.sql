@@ -9,6 +9,7 @@ CREATE TABLE `user` (
 	`username` VARCHAR(50) NOT NULL,
 	`firstname` VARCHAR(50) NOT NULL,
 	`surname` VARCHAR(50) NOT NULL,
+	`email` VARCHAR(100) NOT NULL,
 	`password` VARCHAR(255) NOT NULL,
 	`passport_number` VARCHAR(13) NOT NULL,
 	PRIMARY KEY (`id`)

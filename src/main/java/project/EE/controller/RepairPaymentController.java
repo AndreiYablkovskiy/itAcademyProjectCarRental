@@ -19,25 +19,21 @@ import javax.validation.Valid;
 @RequestMapping("/repair_payment")
 public class RepairPaymentController {
     private final RepairPaymentService repairPaymentService;
-    private final OrderService orderService;
-    private final CarService carService;
 
     @GetMapping("/new")
-    String createRepairPayment(@RequestParam("order") Integer orderId, Model model){
-        RepairPayment repairPayment = new RepairPayment();
-        Order order = orderService.findById(orderId).get();
-        repairPayment.setOrder(order);
+    String showNewRepairPaymentForm(@RequestParam("order") Integer orderId, Model model){
+        RepairPayment repairPayment = repairPaymentService.createRepairPaymentForOrder(orderId);
         model.addAttribute("repairPayment", repairPayment);
         return "repair_payment/new";
     }
 
     @PostMapping("/new")
-    public String registration (@RequestParam("order") Integer orderId, @RequestParam("carStatus") Integer carStatus, @RequestParam("car") Integer carId, @ModelAttribute("repair_payment") @Valid RepairPayment repairPayment, BindingResult bindingResult) {
+    public String saveRepairPaymentAndUpdateCarStatus (@RequestParam("order") Integer orderId, @RequestParam("carStatus") Integer carStatusId, @RequestParam("car") Integer carId
+            ,@ModelAttribute("repair_payment") @Valid RepairPayment repairPayment, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "repair_payment/new";
         }
-        carService.updateCarStatus(carId, carStatus);
-        repairPaymentService.save(repairPayment);
+        repairPaymentService.saveRepairPaymentAndUpdateCarStatus(carId, carStatusId, repairPayment);
         return "redirect:/admin/order?id="+ orderId;
     }
 

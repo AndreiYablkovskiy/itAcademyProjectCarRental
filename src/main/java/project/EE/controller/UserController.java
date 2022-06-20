@@ -39,8 +39,8 @@ public class UserController {
     @GetMapping("/account")
     public String account (Principal principal, Model model){
         User user = userService.findByUsername(principal.getName());
-        List<Order> userOrders = userService.findOrdersByUserId(user.getId());
         model.addAttribute("user", user);
+        List<Order> userOrders = userService.findOrdersByUserId(user.getId());
         model.addAttribute("orders", userOrders);
         return "users/account";
     }
@@ -67,21 +67,6 @@ public class UserController {
         Order order = userService.findUsersOrder(id);
         model.addAttribute("order", order);
         return "users/order";
-    }
-
-    @GetMapping("/login")
-    public String login(){
-        return "users/login";
-    }
-
-    @PostMapping("/login")
-    public String postLogin(){
-        return "redirect:users/success";
-    }
-
-    @GetMapping("/success")
-    public String success(Principal principal){
-        return "users/success";
     }
 
 }

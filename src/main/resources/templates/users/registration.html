@@ -25,6 +25,11 @@
         <input type="text" th:field="*{surname}" id="surname"/>
         <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname error</div>
         <br/>
+        <br/>
+        <label for="email"> Enter email: </label>
+        <input type="text" th:field="*{email}" id="email"/>
+        <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</div>
+        <br/>
         <label for="passportNumber"> Enter passport number: </label>
         <input type="text" th:field="*{passportNumber}" id="passportNumber"/>
         <div style="color:red" th:if="${#fields.hasErrors('passportNumber')}" th:errors="*{passportNumber}">Passport
