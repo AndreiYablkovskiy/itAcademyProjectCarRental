@@ -33,12 +33,12 @@ public class User {
 
     @Column()
     @NotEmpty(message = "Email should not be empty")
-    @Email
+    @Email(message = "Invalid email")
     private String email;
 
     @Column()
     @NotEmpty(message = "Surname should not be empty")
-    @Size(min = 8,message = "Password should be min 8 characters")
+    @Size(min = 8, message = "Password should be min 8 characters")
     private String password;
 
     @Column(name ="passport_number")
