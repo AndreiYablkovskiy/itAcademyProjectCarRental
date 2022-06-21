@@ -22,11 +22,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/users/login","/users/registration/").not().fullyAuthenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/","/cars", "/car", "/users/registration").permitAll()
+                .antMatchers("/","/cars", "/car", "/users/registration", "/images/*", "/style/*").permitAll()
                 .antMatchers("/users/**").hasAnyRole("USER", "ADMIN")
                .anyRequest().authenticated()
                .and()
-              .formLogin();
+              .formLogin()
+                .and()
+                .logout()
+                .logoutSuccessUrl("/");
     }
 
     @Bean

@@ -11,7 +11,9 @@ import project.EE.model.repository.CarRepository;
 import project.EE.service.CarService;
 import project.EE.service.CarStatusService;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -52,6 +54,16 @@ public class CarServiceImpl implements CarService {
             cars = getByStatusId(statusId);
         }
         return cars;
+    }
+
+    @Override
+    public Set<String> getAllMarksWhereCarStatusNotRepair() {
+        Set<String> carMarks = new HashSet<>();
+        List<Car> cars = carRepository.findAllWithoutRepairStatus();
+        for (Car car : cars) {
+            carMarks.add(car.getMark());
+        }
+        return carMarks;
     }
 
 }

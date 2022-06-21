@@ -1,45 +1,73 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
-    <title>New user page</title>
-    <link href="style.css" rel="stylesheet">
+    <title>Edit profile</title>
+    <link href="/style/style.css" rel="stylesheet">
 </head>
 <body>
-<h3>
-    <p th:if="${usernameAlreadyExist}" style="color:red" th:text="${usernameAlreadyExist}"></p>
-    <form th:method="POST" th:action="@{/users/account/edit}" th:object="${user}">
-        <input type="hidden" id="id" th:field="*{id}"/>
-        <label for="username"> Edit username: </label>
-        <input type="text" th:field="*{username}" id="username">
-        <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
-        <br/>
-        <label for="password"> Edit password: </label>
-        <input type="password" th:field="*{password}" id="password"/>
-        <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
-        <br/>
-        <label for="firstname"> Edit firstname: </label>
-        <input type="text" th:field="*{firstname}" id="firstname"/>
-        <div style="color:red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Firstname error</div>
-        <br/>
-        <label for="surname"> Edit surname: </label>
-        <input type="text" th:field="*{surname}" id="surname"/>
-        <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname error</div>
-        <br/>
-        <br/>
-        <label for="email"> Enter email: </label>
-        <input type="text" th:field="*{email}" id="email"/>
-        <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</div>
-        <br/>
-        <label for="passportNumber"> Edit passport number: </label>
-        <input type="text" th:field="*{passportNumber}" id="passportNumber"/>
-        <div style="color:red" th:if="${#fields.hasErrors('passportNumber')}" th:errors="*{passportNumber}">Passport
-            number error
-        </div>
-        <br/>
-        <input type="submit" value="Submit"/>
-    </form>
-   <p> <a  th:href="@{/users/account}"> Back to account </a></p>
-</h3>
+    <header>
+        <h1>
+            <center> Car rental for every day </center>
+        </h1>
+        <center> <img src="/images/header.jpg"/> </center>
+        <h3>
+            <div align="right">
+                <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
+            </div>
+            <div align="right">
+                <a href="/logout" sec:authorize="isAuthenticated()"> Logout </a>
+            </div>
+            <div align="right">
+                <a sec:authorize="!isAuthenticated()" th:href="@{users/registration}">Registration</a>
+            </div>
+            <div align="right">
+                <a sec:authorize="isAuthenticated() and !hasRole('ADMIN')" th:href="@{/users/account}" th:text="${#authentication.getPrincipal().getUsername()}+ ' ' +account"> User account </a>
+            </div>
+            <div align="right">
+                <a th:href="@{/admin/orders?statusId=7}" sec:authorize="hasRole('ADMIN')"> For admins </a>
+            </div>
+        </h3>
+    </header>
+        <h3>
+    <main>
+        <p th:if="${usernameAlreadyExist}" style="color:red" th:text="${usernameAlreadyExist}"></p>
+        <form th:method="POST" th:action="@{/users/account/edit}" th:object="${user}">
+            <input type="hidden" id="id" th:field="*{id}"/>
+            <label for="username"> Edit username: </label>
+            <input type="text" th:field="*{username}" id="username">
+            <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
+            <p/>
+            <label for="password"> Edit password: </label>
+            <input type="password" th:field="*{password}" id="password"/>
+            <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
+            <p/>
+            <label for="firstname"> Edit firstname: </label>
+            <input type="text" th:field="*{firstname}" id="firstname"/>
+            <div style="color:red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Firstname error</div>
+            <p/>
+            <label for="surname"> Edit surname: </label>
+            <input type="text" th:field="*{surname}" id="surname"/>
+            <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname error</div>
+            <p/>
+            <label for="email"> Enter email: </label>
+            <input type="text" th:field="*{email}" id="email"/>
+            <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</div>
+            <p/>
+            <label for="passportNumber"> Edit passport number: </label>
+            <input type="text" th:field="*{passportNumber}" id="passportNumber"/>
+            <div style="color:red" th:if="${#fields.hasErrors('passportNumber')}" th:errors="*{passportNumber}">Passport
+                number error
+            </div>
+            <p/>
+            <input type="submit" value="Submit"/>
+        </form>
+            <p/>
+        <center>
+            <a  th:href="@{/users/account}"> Back to account </a>
+            <a th:href="@{/}"> To main page </a>
+        </center>
+    </main>
+        </h3>
 </body>
 </html>

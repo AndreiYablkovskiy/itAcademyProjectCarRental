@@ -1,13 +1,59 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Repair payment</title>
-    <link href="style.css" rel="stylesheet">
+    <link href="/style/style.css" rel="stylesheet">
 </head>
 <body>
-<h3> Repair payment number: <span style="color:navy" th:text="${repairPayment.getId()}"></span></h3>
-<h3> Value: <span style="color:navy" th:text="${repairPayment.getValue()}"></span></h3>
-<h3><b> Description: </b><span style="color:navy" th:text="${repairPayment.getDescription()}"></span></h3>
+<header>
+    <h1>
+        <center> Car rental for every day </center>
+    </h1>
+    <center> <img src="/images/header.jpg"/> </center>
+    <h3>
+        <div align="right">
+            <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
+        </div>
+        <div align="right">
+            <a href="/logout" sec:authorize="isAuthenticated()"> Logout </a>
+        </div>
+        <div align="right">
+            <a sec:authorize="!isAuthenticated()" th:href="@{users/registration}">Registration</a>
+        </div>
+        <div align="right">
+            <a sec:authorize="isAuthenticated() and !hasRole('ADMIN')" th:href="@{/users/account}" th:text="${#authentication.getPrincipal().getUsername()}+ ' ' +account"> User account </a>
+        </div>
+        <div align="right">
+            <a th:href="@{/admin/orders?statusId=7}" sec:authorize="hasRole('ADMIN')"> For admins </a>
+        </div>
+    </h3>
+</header>
+
+<main>
+    <table border="2" bordercolor="black" bgcolor="LightGrey">
+        <h3>
+        <tr>
+            <td> Repair payment number:</td> <td><span style="color:navy" th:text="${repairPayment.getId()}"></span></td>
+        </tr>
+        <tr>
+            <td> Value: </td> <td><span style="color:navy" th:text="${repairPayment.getValue()}"></span></td>
+        </tr>
+        <tr>
+            <td> Description: </td> <td><pre style="color:navy" th:text="${repairPayment.getDescription()}"></pre></td>
+        </tr>
+            </h3>
+    </table>
+    <h3>
+    <p/>
+    <center>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/order?id={id}(id=${repairPayment.getOrder().getId()})}"> Back to order </a>
+    </center>
+    <center>
+        <a sec:authorize="!hasRole('ADMIN')" th:href="@{/users/order?id={id}(id=${repairPayment.getOrder().getId()})}"> Back to order </a>
+    </center>
+        </h3>
+</main>
+
 </body>
 </html>

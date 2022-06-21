@@ -1,22 +1,70 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Created order page</title>
-    <link href="style.css" rel="stylesheet">
+    <link href="/style/style.css" rel="stylesheet">
 </head>
 <body>
+<header>
+    <h1>
+        <center> Car rental for every day </center>
+    </h1>
+    <center> <img src="/images/header.jpg"/> </center>
+    <h3>
+        <div align="right">
+            <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
+        </div>
+        <div align="right">
+            <a href="/logout" sec:authorize="isAuthenticated()"> Logout </a>
+        </div>
+        <div align="right">
+            <a sec:authorize="!isAuthenticated()" th:href="@{users/registration}">Registration</a>
+        </div>
+        <div align="right">
+            <a sec:authorize="isAuthenticated() and !hasRole('ADMIN')" th:href="@{/users/account}" th:text="${#authentication.getPrincipal().getUsername()}+ ' ' +account"> User account </a>
+        </div>
+        <div align="right">
+            <a th:href="@{/admin/orders?statusId=7}" sec:authorize="hasRole('ADMIN')"> For admins </a>
+        </div>
+    </h3>
+</header>
+
+<main>
     <h2>Your order has been created! After payment, it will be available for processing </h2>
     <h2>To manage your orders, go to your account</h2>
-    <p>--------------------------------------------------------------------------------</p>
-    <h3><b> Order number: </b><span style="color:navy" th:text="${order.getId()}"></span> </h3>
-    <h3><b> Order status: </b><span style="color:navy" th:text="${order.getOrderStatus().getName()}"></span> </h3>
-    <h3><b> Order creation date: </b><span style="color:navy" th:text="${order.getOrderDate().toLocalDate()}"></span> time: <span style="color:navy" th:text="${order.getOrderDate().toLocalTime()}"></span></h3>
-    <h3><b> Rental start date: </b><span style="color:navy" th:text="${order.getRentalStart().toLocalDate()}"></span> time: <span style="color:navy" th:text="${order.getRentalStart().toLocalTime()}"></span></h3>
-    <h3><b> Rental end date: </b><span style="color:navy" th:text="${order.getRentalEnd().toLocalDate()}"></span> time: <span style="color:navy" th:text="${order.getRentalEnd().toLocalTime()}"></span></h3>
-    <h3><b> Car mark and model: </b><span style="color:navy" th:text="${order.getCar().getMark()}"></span> <span style="color:navy" th:text="${order.getCar().getModel()}"></span> </h3>
-    <h3><b> Payment value: </b><span style="color:navy" th:text="${order.getPaymentValue}"></span> </h3>
-    <h3><b> Username: </b><span style="color:navy" th:text="${#authentication.getPrincipal().getUsername()}"></span> </h3>
+    </p>
+    <table border="2" bordercolor="black" bgcolor="LightGrey" >
+        <h3>
+            <tr>
+                <td> Order number:</td> <td><span style="color:navy" th:text="${order.getId()}"></span> </td>
+            </tr>
+            <tr>
+                <td> Order status:</td> <td><span style="color:navy" th:text="${order.getOrderStatus().getName()}"></span> </td>
+            </tr>
+            <tr>
+                <td> Order creation: </td> <td> <span style="color:navy" th:text="${order.getOrderDate().toLocalDate()}+ ' ' +${order.getOrderDate().toLocalTime()}"></span> </td>
+            </tr>
+            <tr>
+                <td> Rental start: </td> <td> <span style="color:navy" th:text="${order.getRentalStart().toLocalDate()}+ ' ' +${order.getRentalStart().toLocalTime()}"></span> </td>
+            </tr>
+            <tr>
+                <td> Rental end: </td> <td> <span style="color:navy" th:text="${order.getRentalEnd().toLocalDate()}+ ' ' +${order.getRentalEnd().toLocalTime()}"></span> </td>
+            </tr>
+            <tr>
+                <td> Car mark and model: </td> <td><span style="color:navy" th:text="${order.getCar().getMark()}"></span>  </td>
+            </tr>
+            <tr>
+                <td> Car model: </td> <td><span style="color:navy" th:text="${order.getCar().getModel()}"></span>  </td>
+            </tr>
+            <tr>
+                <td> Payment value: </td> <td> <span style="color:navy" th:text="${order.getPaymentValue}"></span> </td>
+            </tr>
+            <tr>
+                <td> Username: </td> <td> <span style="color:navy" th:text="${#authentication.getPrincipal().getUsername()}"></span> </td>
+            </tr>
+            </h3>
+        </table>
     <h3>
         <div>
             <form th:action="@{/orders/payment}">
@@ -27,8 +75,11 @@
                 <button type="submit"> Pay </button>
             </form>
         </div>
+    <center>
+    <a th:href="@{/users/order?id={id}(id=${order.getId()})}"> To created order </a>
+     <a th:href="@{/}"> To main page </a>
+    </center>
     </h3>
-    <h3> <a th:href="@{/users/order?id={id}(id=${order.getId()})}"> To created order </a></h3>
-    <h3> <a th:href="@{/}"> To main page </a></h3>
+</main>
 </body>
 </html>

@@ -10,12 +10,20 @@ import project.EE.service.CarService;
 import project.EE.service.CarStatusService;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
 public class CarController {
     private final CarService carService;
     private final CarStatusService carStatusService;
+
+    @GetMapping("/")
+    public String getAllMarks(Model model){
+        Set<String> marks = carService.getAllMarksWhereCarStatusNotRepair();
+        model.addAttribute("marks", marks);
+        return "index";
+    }
 
     @GetMapping("/cars")
     public String getCars(@RequestParam(required = false) Integer statusId, Model model) {

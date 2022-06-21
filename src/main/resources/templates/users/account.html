@@ -2,27 +2,84 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
-    <title>Home page</title>
-    <link href="style.css" rel="stylesheet">
+    <title> Account </title>
+    <link href="/style/style.css" rel="stylesheet">
 </head>
 <body>
-<h3> Username: <span style="color:navy" th:text="${user.getUsername()}"></span></h3>
-<h3><b> Firstname: </b><span style="color:navy" th:text="${user.getFirstname()}"></span></h3>
-<h3><b> Surname: </b><span style="color:navy" th:text="${user.getSurname()}"></span></h3>
-<h3><b> Passport number: </b><span style="color:navy" th:text="${user.getPassportNumber()}"></span></h3>
-<h3><b> Email: </b><span style="color:navy" th:text="${user.getEmail()}"></span></h3>
-<form sec:authorize="hasRole('USER')" th:method="GET" th:action="@{/users/account/edit}">
-    <input type="hidden" name="id" th:value="${user.getId()}">
-    <button>Edit profile</button>
-</form>
-<h2><b>Your Orders:</b></h2>
-<div th:each="orders : ${orders}">
-    <h3> Number <i><a style="color:navy" th:href="@{/users/order?id={id}(id=${orders.getId()})}" th:text="${orders.getId()}"></a></i>
-        <p>From <i><span style="color:navy" th:text="${orders.getOrderDate().toLocalDate()}"></span></i></p>
-        <p>Order status is <i><span style="color:navy"  th:text="${orders.getOrderStatus().getName()}"></span></i></p>
-        <p>-------------------------------------------------</p>
+<header>
+    <h1>
+        <center> Car rental for every day </center>
+    </h1>
+    <center> <img src="/images/header.jpg"/> </center>
+    <h3>
+        <div align="right">
+            <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
+        </div>
+        <div align="right">
+            <a href="/logout" sec:authorize="isAuthenticated()"> Logout </a>
+        </div>
+        <div align="right">
+            <a sec:authorize="!isAuthenticated()" th:href="@{users/registration}">Registration</a>
+        </div>
+        <div align="right">
+            <a sec:authorize="isAuthenticated() and !hasRole('ADMIN')" th:href="@{/users/account}" th:text="${#authentication.getPrincipal().getUsername()}+ ' ' +account"> User account </a>
+        </div>
+        <div align="right">
+            <a th:href="@{/admin/orders?statusId=7}" sec:authorize="hasRole('ADMIN')"> For admins </a>
+        </div>
     </h3>
+</header>
+<main>
+<h2> Profile data:</h2>
+    <h3>
+    <table border="2" bordercolor="black">
+        <tr>
+            <td  th:text="'Username:'+ ' ' +${user.getUsername()}"></td>
+        </tr>
+        <tr>
+    <td   th:text="'Firstname:'+ ' ' +${user.getFirstname()}"></td>
+        </tr>
+        <tr>
+    <td   th:text="'Surname:'+ ' ' +${user.getSurname()}"></td>
+        </tr>
+        <tr>
+    <td    th:text="'Passport number:'+ ' ' +${user.getPassportNumber()}"></td>
+        </tr>
+        <tr>
+    <td   th:text="'Email:'+ ' ' +${user.getEmail()}"></td>
+        </tr>
+    </table>
+
+        <form  sec:authorize="hasRole('USER')" th:method="GET" th:action="@{/users/account/edit}">
+        <input type="hidden" name="id" th:value="${user.getId()}">
+        <button>Edit profile</button>
+        </form>
+    </h3>
+<h2> My orders:</h2>
+<div th:each="orders : ${orders}">
+    <table border="2" bordercolor="black" bgcolor="LightGrey" width="15%">
+        <h3>
+        <tr>
+            <td> <span   th:text="Number+ ' ' +${orders.getId()}"></span> </td>
+        </tr>
+        <tr>
+            <td> <span  th:text="'From'+ ' ' +${orders.getOrderDate().toLocalDate()}"></span> </td>
+        </tr>
+        <tr>
+            <td> <span   th:text="'Order status is'+ ' ' +${orders.getOrderStatus().getName()}"></span></td>
+        </tr>
+        </tr>
+            <td> <a th:href="@{/admin/order?id={id}(id=${orders.getId()})}">Open the order</a> </td>
+        </tr>
+            </h3>
+    </table>
+    <p/>
 </div>
-<h3><a th:href="@{/}"> To main page </a></h3>
+    <h3>
+    <center>
+        <a th:href="@{/}"> To main page </a>
+    </center>
+    </h3>
+    </main>
 </body>
 </html>

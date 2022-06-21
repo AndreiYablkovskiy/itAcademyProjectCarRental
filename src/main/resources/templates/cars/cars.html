@@ -3,9 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Cars page</title>
-    <link href="style.css" rel="stylesheet">
+    <link href="/style/style.css" rel="stylesheet">
 </head>
 <body>
+<header>
+    <h1>
+        <center> Car rental for every day </center>
+    </h1>
+    <center> <img src="/images/header.jpg"/> </center>
+    <h3>
+        <div align="right">
+            <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
+        </div>
+        <div align="right">
+            <a href="/logout" sec:authorize="isAuthenticated()"> Logout </a>
+        </div>
+        <div align="right">
+            <a sec:authorize="!isAuthenticated()" th:href="@{users/registration}">Registration</a>
+        </div>
+        <div align="right">
+            <a sec:authorize="isAuthenticated() and !hasRole('ADMIN')" th:href="@{/users/account}" th:text="${#authentication.getPrincipal().getUsername()}+ ' ' +account"> User account </a>
+        </div>
+        <div align="right">
+            <a th:href="@{/admin/orders?statusId=7}" sec:authorize="hasRole('ADMIN')"> For admins </a>
+        </div>
+    </h3>
+</header>
+<main>
 <h3>
     <form th:method="GET" th:action="@{/cars}">
         <select name="statusId" >
@@ -19,9 +43,11 @@
     <div th:each="cars : ${cars}">
         <a th:href="@{car?id={id}(id=${cars.getId()})}" th:text="${cars.getMark()}">car</a>
     </div>
-    <p>
+    <p/>
+        <center>
         <a th:href="@{/}"> To main page </a>
-    </p>
+        </center>
 </h3>
+</main>
 </body>
 </html>

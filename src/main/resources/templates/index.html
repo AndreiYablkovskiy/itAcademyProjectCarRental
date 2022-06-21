@@ -3,30 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Home page</title>
-    <link href="style.css" rel="stylesheet">
+    <link href="/style/style.css" rel="stylesheet">
 </head>
 <body>
-<h1><b>Welcome to the car rental website</b></h1>
-<h3>
-    <div>
-        <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
-    </div>
-    <div>
-        <a sec:authorize="!isAuthenticated()" th:href="@{users/registration}">Registration</a>
-    </div>
-    <div>
-        <a href="/logout" sec:authorize="isAuthenticated()"> Logout </a>
-    </div>
-    <div>
+    <header>
+        <h1>
+            <center> Car rental for every day </center>
+        </h1>
+        <center> <img src="/images/header.jpg"/> </center>
+            <h3>
+               <div align="right">
+                   <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
+               </div>
+                <div align="right">
+                <a href="/logout" sec:authorize="isAuthenticated()"> Logout </a>
+                </div>
+                <div align="right">
+                <a sec:authorize="!isAuthenticated()" th:href="@{users/registration}">Registration</a>
+                </div>
+                <div align="right">
+                <a sec:authorize="isAuthenticated() and !hasRole('ADMIN')" th:href="@{/users/account}" th:text="${#authentication.getPrincipal().getUsername()}+ ' ' +account"> User account </a>
+                </div>
+                <div align="right">
+                <a th:href="@{/admin/orders?statusId=7}" sec:authorize="hasRole('ADMIN')"> For admins </a>
+                </div>
+            </h3>
+    </header>
+    <main>
+        <div th:each="mark : ${marks}">
+            <p  th:text="${mark}">car</p>
+        </div>
+        <h3>
         <a th:href="@{/cars?statusId=0}"> Cars </a>
-    </div>
-    <div>
-        <a sec:authorize="isAuthenticated() and !hasRole('ADMIN')" th:href="@{/users/account}"> User account </a>
-    </div>
-    <div>
-        <p></p>
-        <a th:href="@{/admin/orders?statusId=7}" sec:authorize="hasRole('ADMIN')"> For admins </a>
-    </div>
-</h3>
+        </h3>
+    </main>
 </body>
 </html>
