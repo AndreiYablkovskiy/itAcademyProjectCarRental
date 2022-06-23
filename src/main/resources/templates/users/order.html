@@ -63,7 +63,7 @@
     </table>
     <h3>
         <div th:each="repairPayment : ${order.getRepairPayments()}">
-            Repair payment number: <a th:href="@{/repair_payment/details/?id={id}(id=${repairPayment.getId()})}" th:text="${repairPayment.getId()}" target="_blank">payment</a>
+            Repair payment number: <a th:href="@{/repair_payment/details/?id={id}(id=${repairPayment.getId()})}" th:text="${repairPayment.getId()}">payment</a>
         </div>
     </h3>
     <h3>

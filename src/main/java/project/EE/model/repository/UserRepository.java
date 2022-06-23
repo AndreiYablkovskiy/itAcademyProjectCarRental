@@ -8,8 +8,7 @@ import project.EE.model.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-  @Query(value = "SELECT * FROM car_rental.user where username = :username", nativeQuery = true)
-  User findByUsername(@Param("username") String username);
+  User findByUsername(String username);
 
 
 }

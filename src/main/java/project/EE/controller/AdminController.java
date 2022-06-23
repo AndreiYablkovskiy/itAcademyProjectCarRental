@@ -1,6 +1,7 @@
 package project.EE.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+@Log4j2
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin")
@@ -28,6 +30,7 @@ public class AdminController {
 
     @GetMapping("/orders")
     public String getAllOrders(@RequestParam(required = false) Integer statusId, Model model) {
+        log.info("/orders with statusId {}", statusId );
         List<Order> orders = orderService.getOrdersByStatus(statusId);
         model.addAttribute("orders", orders);
         List<OrderStatus> orderStatuses = orderStatusService.findAll();

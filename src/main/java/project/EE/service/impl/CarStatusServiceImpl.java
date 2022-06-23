@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CarStatusServiceImpl implements CarStatusService {
+    public static final String REPAIR_STATUS = "repair";
     private final CarStatusRepository carStatusRepository;
 
     @Override
@@ -19,13 +20,8 @@ public class CarStatusServiceImpl implements CarStatusService {
     }
 
     @Override
-    public List<CarStatus> findAll() {
-        return carStatusRepository.findAll();
-    }
-
-    @Override
     public List<CarStatus> findAllWithoutRepairStatus() {
-        return carStatusRepository.findByNameNot("repair");
+        return carStatusRepository.findByNameNot(REPAIR_STATUS);
     }
 
 }

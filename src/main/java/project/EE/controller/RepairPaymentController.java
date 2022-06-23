@@ -5,11 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import project.EE.model.entity.Car;
-import project.EE.model.entity.Order;
 import project.EE.model.entity.RepairPayment;
-import project.EE.service.CarService;
-import project.EE.service.OrderService;
 import project.EE.service.RepairPaymentService;
 
 import javax.validation.Valid;

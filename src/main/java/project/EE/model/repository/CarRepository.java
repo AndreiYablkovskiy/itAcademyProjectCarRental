@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface CarRepository extends JpaRepository<Car, Integer> {
-    @Query(value = "SELECT * FROM car_rental.car where car_status_id not in ('3')", nativeQuery = true)
-    List<Car> findAllWithoutRepairStatus();
+    List<Car> findByCarStatusIdNot(Integer carStatus);
     List<Car> findByCarStatusId(Integer statusId);
 }

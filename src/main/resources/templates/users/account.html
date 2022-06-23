@@ -69,7 +69,7 @@
             <td> <span   th:text="'Order status is'+ ' ' +${orders.getOrderStatus().getName()}"></span></td>
         </tr>
         </tr>
-            <td> <a th:href="@{/admin/order?id={id}(id=${orders.getId()})}">Open the order</a> </td>
+            <td> <a th:href="@{/users/order?id={id}(id=${orders.getId()})}">Open the order</a> </td>
         </tr>
             </h3>
     </table>
