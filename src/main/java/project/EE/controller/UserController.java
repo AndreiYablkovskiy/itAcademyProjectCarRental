@@ -64,7 +64,7 @@ public class UserController {
 
     @GetMapping("/order")
     public String getUserOrder (@RequestParam Integer id, Model model){
-        Order order = userService.findUsersOrder(id);
+        Order order = userService.findUserOrder(id);
         model.addAttribute("order", order);
         return "users/order";
     }

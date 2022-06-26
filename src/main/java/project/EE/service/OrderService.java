@@ -9,7 +9,7 @@ import java.util.Optional;
 
 
 public interface OrderService {
-    boolean crateNewOrder (Integer carId, String rentalStart, String rentalEnd, Principal principal);
+    boolean createNewOrder(Integer carId, String rentalStart, String rentalEnd, Principal principal);
     Order showNewOrder (Principal principal);
     void updateOrderStatus(Integer orderId, Integer statusId);
     void updateOrderStatus(Integer orderId, Integer statusId, Principal principal);

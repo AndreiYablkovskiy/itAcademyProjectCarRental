@@ -28,7 +28,7 @@ public class OrderController {
             model.addAttribute("id", carId);
             return "orders/new";
         }
-        if(orderService.crateNewOrder(carId, rentalStart, rentalEnd, principal)){
+        if(orderService.createNewOrder(carId, rentalStart, rentalEnd, principal)){
             return "redirect:/orders/created";
         }
         model.addAttribute("wrongRentalDate", "Rental start should not be after rental end and cannot be in past");

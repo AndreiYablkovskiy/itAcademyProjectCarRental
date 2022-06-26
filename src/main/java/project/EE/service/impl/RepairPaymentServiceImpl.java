@@ -18,7 +18,6 @@ public class RepairPaymentServiceImpl implements RepairPaymentService {
    private final CarService carService;
 
     @Override
-    @Transactional
     public void save(RepairPayment repairPayment) {
         repairPaymentRepository.save(repairPayment);
     }
@@ -29,6 +28,7 @@ public class RepairPaymentServiceImpl implements RepairPaymentService {
     }
 
     @Override
+    @Transactional
     public RepairPayment createRepairPaymentForOrder(Integer orderId) {
         RepairPayment repairPayment = new RepairPayment();
         Order order = orderService.findById(orderId).get();
@@ -37,6 +37,7 @@ public class RepairPaymentServiceImpl implements RepairPaymentService {
     }
 
     @Override
+    @Transactional
     public void saveRepairPaymentAndUpdateCarStatus(Integer carId, Integer carStatusId, RepairPayment repairPayment) {
         carService.updateCarStatus(carId, carStatusId);
         save(repairPayment);

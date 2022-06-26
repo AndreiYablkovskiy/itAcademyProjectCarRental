@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CarStatusServiceImpl implements CarStatusService {
-    public static final String REPAIR_STATUS = "repair";
+    private static final String REPAIR_STATUS = "repair";
     private final CarStatusRepository carStatusRepository;
 
     @Override

@@ -17,7 +17,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class CarServiceImpl implements CarService {
     public static final Integer REPAIR_STATUS = 3;
-    public static final int STATUS_ALL = 0;
+    public static final Integer STATUS_ALL = 0;
     private final CarRepository carRepository;
     private final CarStatusService carStatusService;
 

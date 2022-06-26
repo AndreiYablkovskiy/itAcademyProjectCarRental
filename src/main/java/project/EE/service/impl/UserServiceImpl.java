@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Order findUsersOrder(Integer id) {
+    public Order findUserOrder(Integer id) {
       return   orderRepository.getById(id);
     }
 

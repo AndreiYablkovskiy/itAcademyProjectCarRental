@@ -21,7 +21,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
-    public static final int ORDER_STATUS_ALL = 0;
+    private static final int ORDER_STATUS_ALL = 0;
+    public static final int ORDER_STATUS_CREATED = 1;
     private final OrderRepository orderRepository;
     private final OrderStatusService orderStatusService;
     private final UserService userService;
@@ -31,13 +32,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public boolean crateNewOrder(Integer carId, String rentalStart, String rentalEnd, Principal principal) {
+    public boolean createNewOrder(Integer carId, String rentalStart, String rentalEnd, Principal principal) {
         LocalDateTime start = LocalDateTime.parse(rentalStart);
         LocalDateTime end = LocalDateTime.parse(rentalEnd);
         if(start.isAfter(end) || start.isBefore(LocalDateTime.now())){
             return false;
         }
-            OrderStatus orderStatus = orderStatusService.findById(1);
+            OrderStatus orderStatus = orderStatusService.findById(ORDER_STATUS_CREATED);
             User user = userService.findByUsername(principal.getName());
             Car car = carService.findById(carId);
             Order order = new Order();
@@ -109,12 +110,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void updateOrderAndCarStatuses(Integer carId, Integer carStatusId, Integer orderId, Integer statusId) {
         updateOrderStatus(orderId, statusId);
         carService.updateCarStatus(carId,carStatusId);
     }
 
     @Override
+    @Transactional
     public void updateOrderAndCarStatuses(Integer carId, Integer carStatusId, Integer orderId, Integer statusId, Principal principal) {
         updateOrderStatus(orderId, statusId, principal);
         if (carStatusId != null && carId != null) {
