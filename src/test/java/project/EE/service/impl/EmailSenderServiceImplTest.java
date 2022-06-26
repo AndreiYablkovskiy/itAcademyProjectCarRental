@@ -14,15 +14,20 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class EmailSenderServiceImplTest {
     @InjectMocks
-    EmailSenderServiceImpl emailSenderService;
+    private EmailSenderServiceImpl emailSenderService;
     @Mock
     private JavaMailSender javaMailSender;
 
     @Test
     void sendEmail() {
+        SimpleMailMessage smm = new SimpleMailMessage();
+        smm.setTo("some@mail.ru");
+        smm.setSubject("some subject");
+        smm.setText("some message");
+
         emailSenderService.sendEmail("some@mail.ru","some subject", "some message");
 
-        Mockito.verify(javaMailSender, Mockito.times(1)).send(ArgumentMatchers.any(SimpleMailMessage.class));
+        Mockito.verify(javaMailSender, Mockito.times(1)).send(ArgumentMatchers.eq(smm));
 
     }
 }
