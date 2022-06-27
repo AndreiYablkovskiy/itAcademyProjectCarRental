@@ -11,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import project.EE.model.entity.Order;
 import project.EE.model.entity.Role;
 import project.EE.model.entity.User;
@@ -41,11 +42,41 @@ class UserServiceImplTest {
     User user;
 
     @Test
-    void saveUser() { //todo 2 methods
+    void saveUserWhenUserFromDBNotNull() {
+        User user = new User();
+        user.setUsername("Bill");
+
+        Mockito.doReturn(new User())
+                .when(userRepository)
+                .findByUsername("Bill");
+
+        boolean isUserSaved = userService.saveUserOrUpdate(user);
+        Mockito.verify(userRepository, Mockito.times(1)).findByUsername("Bill");
+        assertFalse(isUserSaved);
     }
 
     @Test
-    void updateUser() {
+    void saveUser() {
+        BCryptPasswordEncoder bcrypt = Mockito.mock(BCryptPasswordEncoder.class);
+
+        User user = new User();
+        user.setUsername("Bill");
+        user.setPassword("12345678");
+
+        Mockito.doReturn(bcrypt)
+                .when(encoder)
+                .bCryptPasswordEncoder();
+
+        Mockito.doReturn("87654321")
+                .when(bcrypt)
+                .encode(user.getPassword());
+
+
+        boolean isUserSaved = userService.saveUserOrUpdate(user);
+        Mockito.verify(userRepository, Mockito.times(1)).findByUsername("Bill");
+        Mockito.verify(userRepository, Mockito.times(1)).save(user);
+        assertNotNull(user.getRoles());
+        assertTrue(isUserSaved);
     }
 
     @Test

@@ -80,7 +80,6 @@ class OrderServiceImplTest {
                 , principal);
 
         assertTrue(isOrderCreated);
-        assertNull(order.getOrderInfo());
         assertNotNull(user);
         assertNotNull(car);
 

@@ -32,23 +32,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public boolean saveUser(User user) {
+    public boolean saveUserOrUpdate(User user) {
         User userFromDB = userRepository.findByUsername((user.getUsername()));
         if (userFromDB != null) {
            return false;
-        }
-        user.setRoles(Collections.singletonList(new Role(1, ROLE_USER)));
-        user.setPassword(encoder.bCryptPasswordEncoder().encode(user.getPassword()));
-        userRepository.save(user);
-        return true;
-    }
-
-    @Override
-    @Transactional
-    public boolean updateUser(User user) {
-        User userFromDB = userRepository.findByUsername((user.getUsername()));
-        if (userFromDB != null) {
-            return false;
         }
         user.setRoles(Collections.singletonList(new Role(1, ROLE_USER)));
         user.setPassword(encoder.bCryptPasswordEncoder().encode(user.getPassword()));

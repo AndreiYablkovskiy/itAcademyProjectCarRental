@@ -29,7 +29,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "users/registration";
         }
-        if (!userService.saveUser(user)){
+        if (!userService.saveUserOrUpdate(user)){
             model.addAttribute("usernameAlreadyExist", "A user with the same name already exists");
             return "users/registration";
         }
@@ -55,7 +55,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "users/edit";
         }
-        if (!userService.updateUser(user)){
+        if (!userService.saveUserOrUpdate(user)){
             model.addAttribute("usernameAlreadyExist", "A user with the same name already exists");
             return "users/edit";
         }

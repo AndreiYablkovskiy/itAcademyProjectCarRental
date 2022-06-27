@@ -8,10 +8,9 @@ import java.util.List;
 
 
 public interface UserService extends UserDetailsService{
-     boolean saveUser(User user);
+     boolean saveUserOrUpdate(User user);
      User findByUsername(String username);
      List<Order> findOrdersByUserId (Integer userId);
      Order findUserOrder(Integer id);
      User findById(Integer id);
-     boolean updateUser(User user);
 }
