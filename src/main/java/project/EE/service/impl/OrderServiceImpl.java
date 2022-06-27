@@ -53,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
             long rentalDuration = duration.toHours();
             order.setPaymentValue(order.getCar().getCostForOneHour() * rentalDuration);
             orderRepository.save(order);
-            emailSenderService.sendEmail(user.getEmail(),"Order number " +order.getId().toString()
+            emailSenderService.sendEmail(user.getEmail(),"Order number " +order.getId()
             ,"Your order has been successfully created.");
             return true;
     }

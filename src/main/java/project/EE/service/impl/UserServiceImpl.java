@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
                 getGrantedAuthorityFromRoles(user.getRoles()));
     }
 
-    public Collection<? extends GrantedAuthority> getGrantedAuthorityFromRoles(Collection<Role> roles){
+    public Collection<? extends GrantedAuthority> getGrantedAuthorityFromRoles(Collection<Role> roles) {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
     }
 }

@@ -26,7 +26,6 @@ class EmailSenderServiceImplTest {
         smm.setText("some message");
 
         emailSenderService.sendEmail("some@mail.ru","some subject", "some message");
-
         Mockito.verify(javaMailSender, Mockito.times(1)).send(ArgumentMatchers.eq(smm));
 
     }
