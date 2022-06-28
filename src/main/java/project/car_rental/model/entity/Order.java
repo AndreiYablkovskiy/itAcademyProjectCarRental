@@ -52,4 +52,18 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<RepairPayment> repairPayments;
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + getId() +
+                ", orderDate=" + getOrderDate() +
+                ", rentalStart=" + getRentalStart() +
+                ", rentalEnd=" + getRentalEnd() +
+                ", paymentValue=" + getPaymentValue() +
+                ", employeeName='" + getEmployeeName() + '\'' +
+                ", orderStatus=" + getOrderStatus().getId() +
+                ", car=" + getCar().getId() +
+                ", user=" + getUser().getId() +
+                '}';
+    }
 }

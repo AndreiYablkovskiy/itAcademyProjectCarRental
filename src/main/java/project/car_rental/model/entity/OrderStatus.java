@@ -20,11 +20,19 @@ public class OrderStatus {
     @OneToMany(mappedBy = "orderStatus")
     private List<Order> orders;
 
+    public OrderStatus() {
+    }
+
     public OrderStatus(Integer id, String name){
         this.id = id;
         this.name = name;
     }
 
-    public OrderStatus() {
+    @Override
+    public String toString() {
+        return "OrderStatus{" +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                '}';
     }
 }

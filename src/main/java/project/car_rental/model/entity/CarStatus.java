@@ -18,4 +18,12 @@ public class CarStatus {
 
     @OneToMany(mappedBy = "carStatus", cascade = CascadeType.PERSIST)
     private List<Car> cars;
+
+    @Override
+    public String toString() {
+        return "CarStatus{" +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                '}';
+    }
 }

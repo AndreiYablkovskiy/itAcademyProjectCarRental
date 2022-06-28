@@ -25,4 +25,13 @@ public class RepairPayment {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
+
+    @Override
+    public String toString() {
+        return "RepairPayment{" +
+                "id=" + getId() +
+                ", value=" + getValue() +
+                ", order=" + getOrder().getId() +
+                '}';
+    }
 }

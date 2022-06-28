@@ -28,4 +28,15 @@ public class Car {
 
     @OneToMany(mappedBy = "car")
     private List<Order> orders;
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + getId() +
+                ", mark='" + getMark() + '\'' +
+                ", model='" + getModel() + '\'' +
+                ", costForOneHour=" + getCostForOneHour() +
+                ", carStatus=" + getCarStatus().getId() +
+                '}';
+    }
 }

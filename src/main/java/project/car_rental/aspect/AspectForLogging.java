@@ -27,8 +27,8 @@ public class AspectForLogging {
             + "|| execution(* project.car_rental.model.*.*.*())", throwing = "error")
     public void errorLogger(JoinPoint joinPoint, Throwable error) {
         Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
-        log.info(
-                "!!ERROR!! Method {} executed with {} arguments throw {}",
+        log.error(
+                "Method {} executed with {} arguments throw {}",
                 joinPoint.getStaticPart().getSignature(),
                 joinPoint.getArgs(), error
         );
@@ -40,7 +40,7 @@ public class AspectForLogging {
         Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         log.info(
                 "Method {} returned {}",
-                joinPoint.getStaticPart().getSignature(),
+                joinPoint.getStaticPart().getSignature().getName(),
                 result
         );
     }
