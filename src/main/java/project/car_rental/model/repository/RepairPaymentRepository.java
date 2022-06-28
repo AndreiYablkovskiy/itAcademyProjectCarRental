@@ -1,0 +1,9 @@
+package project.car_rental.model.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import project.car_rental.model.entity.RepairPayment;
+
+@Repository
+public interface RepairPaymentRepository extends JpaRepository<RepairPayment, Integer> {
+}
