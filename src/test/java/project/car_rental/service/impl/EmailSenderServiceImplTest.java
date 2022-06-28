@@ -1,4 +1,4 @@
-package project.ee.service.impl;
+package project.car_rental.service.impl;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -8,7 +8,6 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import project.car_rental.service.impl.EmailSenderServiceImpl;
 
 @SpringBootTest
 class EmailSenderServiceImplTest {

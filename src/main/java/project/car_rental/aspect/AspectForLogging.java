@@ -24,7 +24,7 @@ public class AspectForLogging {
 
     @AfterThrowing(value = "execution(* project.car_rental.controller.*.*(..))" + "|| execution(* project.car_rental.service.*.*.*(..))"
             + "|| execution(* project.car_rental.service.*.*.*())" + "|| execution(* project.car_rental.model.*.*.*())"
-            + "|| execution(* project.car_rental.model.*.*.*())", throwing = "error")
+            + "|| execution(* project.car_rental.model.*.*.*(..))", throwing = "error")
     public void errorLogger(JoinPoint joinPoint, Throwable error) {
         Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         log.error(
@@ -34,12 +34,12 @@ public class AspectForLogging {
         );
     }
 
-    @AfterReturning(value = "execution(* project.car_rental.controller.*.*(..))" + "|| execution(* project.car_rental.service.*.*.*(..))"
-            + "|| execution(* project.car_rental.service.*.*.*())", returning = "result")
+    @AfterReturning(value = "execution(* project.car_rental.service.*.*.*(..))" + "|| execution(* project.car_rental.service.*.*.*())"
+            , returning = "result")
     public void afterReturningLogger(JoinPoint joinPoint, Object result) {
         Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         log.info(
-                "Method {} returned {}",
+                "Method '{}' returned {}",
                 joinPoint.getStaticPart().getSignature().getName(),
                 result
         );

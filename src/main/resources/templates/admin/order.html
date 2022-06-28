@@ -35,8 +35,11 @@
             <tr>
                 <td> Order number:</td> <td><span style="color:navy" th:text="${order.getId()}"></span> </td>
             </tr>
-            <tr>
+            <tr >
                 <td> Order status:</td> <td><span style="color:navy" th:text="${order.getOrderStatus().getName()}"></span> </td>
+            </tr>
+            <tr th:if="${order.getEmployeeName()} != null" >
+                <td> Employee: </td> <td> <span style="color:navy" th:text="${order.getEmployeeName()}"></span> </td>
             </tr>
             <tr>
                 <td> Order creation: </td> <td> <span style="color:navy" th:text="${order.getOrderDate().toLocalDate()}+ ' ' +${order.getOrderDate().toLocalTime()}"></span> </td>

@@ -1,4 +1,4 @@
-package project.ee.service.impl;
+package project.car_rental.service.impl;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -16,7 +16,6 @@ import project.car_rental.service.CarService;
 import project.car_rental.service.EmailSenderService;
 import project.car_rental.service.OrderStatusService;
 import project.car_rental.service.UserService;
-import project.car_rental.service.impl.OrderServiceImpl;
 
 import java.security.Principal;
 import java.util.List;
