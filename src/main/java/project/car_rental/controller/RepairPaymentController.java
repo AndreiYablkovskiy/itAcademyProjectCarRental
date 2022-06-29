@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.car_rental.model.entity.RepairPayment;
 import project.car_rental.service.RepairPaymentService;
-
 import javax.validation.Valid;
 
 @Controller
@@ -38,6 +37,5 @@ public class RepairPaymentController {
         RepairPayment repairPayment = repairPaymentService.findById(repairPaymentId);
         model.addAttribute("repairPayment", repairPayment);
         return "repair_payment/details";
-
     }
 }

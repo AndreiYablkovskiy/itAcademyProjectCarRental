@@ -6,4 +6,5 @@ import project.car_rental.model.entity.RepairPayment;
 
 @Repository
 public interface RepairPaymentRepository extends JpaRepository<RepairPayment, Integer> {
+
 }

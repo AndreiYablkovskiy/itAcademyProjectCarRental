@@ -8,7 +8,6 @@ import project.car_rental.model.entity.Car;
 import project.car_rental.model.entity.CarStatus;
 import project.car_rental.service.CarService;
 import project.car_rental.service.CarStatusService;
-
 import java.util.List;
 import java.util.Set;
 
@@ -26,11 +25,13 @@ public class CarController {
     }
 
     @GetMapping("/cars")
-    public String getCars(@RequestParam(required = false) Integer statusId, Model model) {
-        List<Car> cars = carService.getCarsByStatusId(statusId);
+    public String getCarsByMarkAndStatus(@RequestParam(required = false) Integer statusId, @RequestParam String mark, Model model) {
+        List<Car> cars = carService.getCarsByStatusIdAndMark(statusId, mark);
         model.addAttribute("cars", cars);
+        model.addAttribute("statusId", statusId);
         List<CarStatus> carStatuses = carStatusService.findAllWithoutRepairStatus();
         model.addAttribute("statuses", carStatuses);
+        model.addAttribute("mark", mark);
         return "cars/cars";
     }
 

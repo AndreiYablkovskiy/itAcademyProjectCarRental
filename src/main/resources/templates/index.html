@@ -30,11 +30,14 @@
             </h3>
     </header>
     <main>
-        <div th:each="mark : ${marks}">
-            <p  th:text="${mark}">car</p>
-        </div>
         <h3>
-        <a th:href="@{/cars?statusId=0}"> Cars </a>
+        <div th:each="mark : ${marks}">
+            <a th:href="@{cars?statusId=0&mark={mark}(mark=${mark})}" th:text="${mark}">marks</a>
+        </div>
+            <p/>
+        <div>
+            <a th:href="@{cars?statusId=0&mark=all}"> All </a>
+        </div>
         </h3>
     </main>
 </body>

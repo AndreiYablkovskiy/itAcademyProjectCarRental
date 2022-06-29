@@ -12,6 +12,4 @@ public interface OrderRepository extends JpaRepository <Order, Integer> {
     List<Order> findFirst1ByUserId (Integer id, Sort sort);
     List<Order> findByUserId (Integer userId, Sort sort);
     List<Order> findByOrderStatusId (Integer statusId, Sort sort);
-
-
 }

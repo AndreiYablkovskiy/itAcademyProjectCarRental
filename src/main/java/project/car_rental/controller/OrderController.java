@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.car_rental.model.entity.Order;
 import project.car_rental.service.OrderService;
-
 import java.security.Principal;
 
 @Controller

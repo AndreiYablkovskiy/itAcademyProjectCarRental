@@ -7,6 +7,4 @@ import project.car_rental.model.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
   User findByUsername(String username);
-
-
 }

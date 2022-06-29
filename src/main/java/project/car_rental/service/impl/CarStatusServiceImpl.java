@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import project.car_rental.model.entity.CarStatus;
 import project.car_rental.model.repository.CarStatusRepository;
 import project.car_rental.service.CarStatusService;
-
 import java.util.List;
 
 @Service
@@ -23,5 +22,4 @@ public class CarStatusServiceImpl implements CarStatusService {
     public List<CarStatus> findAllWithoutRepairStatus() {
         return carStatusRepository.findByNameNot(REPAIR_STATUS);
     }
-
 }

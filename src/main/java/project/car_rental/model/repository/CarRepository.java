@@ -9,5 +9,7 @@ import java.util.List;
 @Repository
 public interface CarRepository extends JpaRepository<Car, Integer> {
     List<Car> findByCarStatusIdNot(Integer carStatus);
+    List<Car> findByCarStatusIdNotAndMark(Integer carStatus, String mark);
     List<Car> findByCarStatusId(Integer statusId);
+    List<Car> findByCarStatusIdAndMark(Integer statusId, String mark);
 }

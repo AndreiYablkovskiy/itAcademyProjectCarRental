@@ -3,7 +3,6 @@ package project.car_rental.service;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import project.car_rental.model.entity.Order;
 import project.car_rental.model.entity.User;
-
 import java.util.List;
 
 
