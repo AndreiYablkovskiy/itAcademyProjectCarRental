@@ -23,12 +23,12 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Car> findAllWithoutRepairStatus() {
-      return   carRepository.findByCarStatusIdNot(REPAIR_STATUS);
+      return   carRepository.findByCarStatusIdNotOrderByMark(REPAIR_STATUS);
     }
 
     @Override
     public List<Car> findAllByMarkWithoutRepairStatus(String mark) {
-        return   carRepository.findByCarStatusIdNotAndMark(REPAIR_STATUS, mark);
+        return   carRepository.findByCarStatusIdNotAndMarkOrderByMark(REPAIR_STATUS, mark);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Car> getByStatusId(Integer id) {
-        return carRepository.findByCarStatusId(id);
+        return carRepository.findByCarStatusIdOrderByMark(id);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class CarServiceImpl implements CarService {
         } else if (statusId.equals(STATUS_ALL)) {
             cars = findAllByMarkWithoutRepairStatus(mark);
         } else if (mark.equals(CAR_MARK_ALL)) {
-            cars = carRepository.findByCarStatusId(statusId);
+            cars = carRepository.findByCarStatusIdOrderByMark(statusId);
         } else {
             cars = carRepository.findByCarStatusIdAndMark(statusId, mark);
         }
@@ -79,7 +79,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public Set<String> getAllMarksWhereCarStatusNotRepair() {
         Set<String> carMarks = new HashSet<>();
-        List<Car> cars = carRepository.findByCarStatusIdNot(REPAIR_STATUS);
+        List<Car> cars = carRepository.findByCarStatusIdNotOrderByMark(REPAIR_STATUS);
         for (Car car : cars) {
             carMarks.add(car.getMark());
         }

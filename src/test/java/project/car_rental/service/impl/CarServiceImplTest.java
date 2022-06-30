@@ -36,10 +36,10 @@ class CarServiceImplTest {
     void findAllWithoutRepairStatus() {
         Mockito.doReturn(mockCars)
                 .when(carRepository)
-                .findByCarStatusIdNot(REPAIR_STATUS);
+                .findByCarStatusIdNotOrderByMark(REPAIR_STATUS);
 
         List<Car> resultList = carService.findAllWithoutRepairStatus();
-        Mockito.verify(carRepository, Mockito.times(1)).findByCarStatusIdNot(ArgumentMatchers.eq(REPAIR_STATUS));
+        Mockito.verify(carRepository, Mockito.times(1)).findByCarStatusIdNotOrderByMark(ArgumentMatchers.eq(REPAIR_STATUS));
         assertEquals(mockCars, resultList);
 
     }
@@ -81,10 +81,10 @@ class CarServiceImplTest {
 
         Mockito.doReturn(mockCars)
                 .when(carRepository)
-                .findByCarStatusId(1);
+                .findByCarStatusIdOrderByMark(1);
 
         List<Car> resultList = carService.getByStatusId(1);
-        Mockito.verify(carRepository, Mockito.times(1)).findByCarStatusId(1);
+        Mockito.verify(carRepository, Mockito.times(1)).findByCarStatusIdOrderByMark(1);
         assertEquals(mockCars, resultList);
     }
 
@@ -92,10 +92,10 @@ class CarServiceImplTest {
     void getCarsByStatusIdIs0() {
         Mockito.doReturn(mockCars)
                 .when(carRepository)
-                .findByCarStatusIdNot(REPAIR_STATUS);
+                .findByCarStatusIdNotOrderByMark(REPAIR_STATUS);
 
         List<Car> resultList = carService.getCarsByStatusId(STATUS_ALL);
-        Mockito.verify(carRepository, Mockito.times(1)).findByCarStatusIdNot(ArgumentMatchers.eq(REPAIR_STATUS));
+        Mockito.verify(carRepository, Mockito.times(1)).findByCarStatusIdNotOrderByMark(ArgumentMatchers.eq(REPAIR_STATUS));
         assertEquals(mockCars, resultList);
 
     }
@@ -104,17 +104,17 @@ class CarServiceImplTest {
     void getCarsByStatusIdIsNot0() {
         Mockito.doReturn(mockCars)
                 .when(carRepository)
-                .findByCarStatusId(2);
+                .findByCarStatusIdOrderByMark(2);
 
         List<Car> resultList = carService.getCarsByStatusId(2);
-        Mockito.verify(carRepository, Mockito.times(1)).findByCarStatusId(ArgumentMatchers.eq(2));
+        Mockito.verify(carRepository, Mockito.times(1)).findByCarStatusIdOrderByMark(ArgumentMatchers.eq(2));
         assertEquals(mockCars, resultList);
     }
 
     @Test
     void getAllMarksWhereCarStatusNotRepair() {
         carService.getAllMarksWhereCarStatusNotRepair();
-        Mockito.verify(carRepository, Mockito.times(1)).findByCarStatusIdNot(ArgumentMatchers.eq(REPAIR_STATUS));
+        Mockito.verify(carRepository, Mockito.times(1)).findByCarStatusIdNotOrderByMark(ArgumentMatchers.eq(REPAIR_STATUS));
 
     }
 }
