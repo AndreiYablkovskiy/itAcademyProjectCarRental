@@ -27,7 +27,7 @@
         <Logger name="project.car_rental" level="info">
             <AppenderRef ref="FileAppender" />
         </Logger>
-        <Root level="warn">
+        <Root level="info">
             <AppenderRef ref="ConsoleAppender" />
         </Root>
     </Loggers>

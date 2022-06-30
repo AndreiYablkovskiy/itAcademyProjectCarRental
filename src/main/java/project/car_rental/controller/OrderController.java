@@ -31,7 +31,7 @@ public class OrderController {
         if(orderService.createNewOrder(carId, rentalStart, rentalEnd, principal)){
             return "redirect:/orders/created";
         }
-        model.addAttribute("wrongRentalDateOrTime", "Rental start should not be after rental end and cannot be in past");
+        model.addAttribute("wrongRentalDateOrTime", "Wrong rental date or time");
         model.addAttribute("id", carId);
         return "orders/new";
     }

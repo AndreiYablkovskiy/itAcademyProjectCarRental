@@ -31,8 +31,10 @@
 </header>
 <h3>
     <main>
+        <i>Minimum rental time is 1 hour.</i>
+        <p/>
     <p th:if="${timeIsEmpty}" style="color:red" th:text="${timeIsEmpty}"></p>
-    <p th:if="${wrongRentalDate}" style="color:red" th:text="${wrongRentalDate}"></p>
+    <p th:if="${wrongRentalDateOrTime}" style="color:red" th:text="${wrongRentalDateOrTime}"></p>
     <form th:method="POST" th:action="@{/orders/new}">
         <input type="hidden" name="id" th:value="${id}"/>
         <label for="rentalStart"> Select rental start date and time: </label>
