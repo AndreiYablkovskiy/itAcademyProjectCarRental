@@ -33,7 +33,7 @@ public class RepairPaymentController {
     }
 
     @GetMapping("/details")
-    public String showDetails (@RequestParam("id") Integer repairPaymentId, Model model){
+    public String showRepairPaymentDetails (@RequestParam("id") Integer repairPaymentId, Model model){
         RepairPayment repairPayment = repairPaymentService.findById(repairPaymentId);
         model.addAttribute("repairPayment", repairPayment);
         return "repair_payment/details";

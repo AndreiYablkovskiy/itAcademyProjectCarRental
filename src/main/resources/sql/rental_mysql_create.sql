@@ -55,11 +55,6 @@ CREATE TABLE `order` (
 	PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `order_info` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(1000) NULL,
-    PRIMARY KEY (`id`));
-
   CREATE TABLE `role` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(45) NOT NULL,

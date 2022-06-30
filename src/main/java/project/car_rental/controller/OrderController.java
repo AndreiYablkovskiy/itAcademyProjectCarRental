@@ -15,7 +15,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping("/new")
-    public String newOrder (@RequestParam("id") Integer carId, Model model) {
+    public String getNewOrder (@RequestParam("id") Integer carId, Model model) {
         model.addAttribute("id", carId);
         return "orders/new";
     }
@@ -37,7 +37,7 @@ public class OrderController {
     }
 
     @GetMapping("/created")
-    public String createdOrder(Principal principal, Model model){
+    public String getCreatedOrder(Principal principal, Model model){
         Order order = orderService.showNewOrder(principal);
         model.addAttribute("order", order);
         return "orders/created";

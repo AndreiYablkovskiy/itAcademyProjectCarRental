@@ -19,7 +19,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/registration")
-    public String newUser (@ModelAttribute("user") User user) {
+    public String getRegistrationForm (@ModelAttribute("user") User user) {
         return "users/registration";
     }
 
@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/account")
-    public String account (Principal principal, Model model){
+    public String getUserAccount (Principal principal, Model model){
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);
         List<Order> userOrders = userService.findOrdersByUserId(user.getId());
@@ -44,7 +44,7 @@ public class UserController {
         return "users/account";
     }
     @GetMapping("/account/edit")
-    public String editAccount (@RequestParam Integer id, Model model){
+    public String getEditAccountForm (@RequestParam Integer id, Model model){
         User user = userService.findById(id);
         model.addAttribute("user", user);
         return "users/edit";

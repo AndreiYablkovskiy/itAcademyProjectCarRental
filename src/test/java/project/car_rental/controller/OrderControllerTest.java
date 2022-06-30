@@ -21,8 +21,7 @@ class OrderControllerTest {
     private static final String TEST_USER = "test";
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
-    private OrderController orderController;
+
 
     @Test
     void newOrder() throws Exception {

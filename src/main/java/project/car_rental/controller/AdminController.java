@@ -63,7 +63,7 @@ public class AdminController {
     }
 
     @GetMapping("/user")
-    public String account (@RequestParam String username, Model model){
+    public String getUserAccount (@RequestParam String username, Model model){
         User user = userService.findByUsername(username);
         model.addAttribute("user", user);
         List<Order> userOrders = userService.findOrdersByUserId(user.getId());
