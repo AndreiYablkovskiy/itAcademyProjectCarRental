@@ -35,7 +35,9 @@ public class OrderServiceImpl implements OrderService {
     public boolean createNewOrder(Integer carId, String rentalStart, String rentalEnd, Principal principal) {
         LocalDateTime start = LocalDateTime.parse(rentalStart);
         LocalDateTime end = LocalDateTime.parse(rentalEnd);
-        if(start.isAfter(end) || start.isBefore(LocalDateTime.now())){
+        Duration duration = Duration.between(start, end);
+        long rentalDuration = duration.toHours();
+        if(start.isAfter(end) || start.isBefore(LocalDateTime.now()) || rentalDuration < 1){
             return false;
         }
             OrderStatus orderStatus = orderStatusService.findById(ORDER_STATUS_CREATED);
@@ -49,8 +51,6 @@ public class OrderServiceImpl implements OrderService {
             order.setRentalStart(start);
             order.setRentalEnd(end);
             order.setOrderInfo(" ");
-            Duration duration = Duration.between(order.getRentalStart(), order.getRentalEnd());
-            long rentalDuration = duration.toHours();
             order.setPaymentValue(order.getCar().getCostForOneHour() * rentalDuration);
             orderRepository.save(order);
             emailSenderService.sendEmail(user.getEmail(),"Order number " +order.getId()
