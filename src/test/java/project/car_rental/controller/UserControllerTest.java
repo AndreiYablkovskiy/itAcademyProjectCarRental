@@ -15,7 +15,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @AutoConfigureMockMvc(addFilters = false)
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 class UserControllerTest {
     private static final String USERNAME_FOR_TEST_FROM_DB = "test";
@@ -56,19 +55,4 @@ class UserControllerTest {
         user.setUsername(USERNAME_FOR_TEST_FROM_DB);
     }
 
-    @Test
-    void account() {
-    }
-
-    @Test
-    void editAccount() {
-    }
-
-    @Test
-    void testEditAccount() {
-    }
-
-    @Test
-    void getUserOrder() {
-    }
 }

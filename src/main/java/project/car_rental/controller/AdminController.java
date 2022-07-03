@@ -51,13 +51,15 @@ public class AdminController {
 
     @PostMapping("/order")
     public String updateOrderAndCarStatus (@RequestParam("order") Integer orderId, @RequestParam("status") Integer statusId
-            ,@RequestParam(value = "carStatus", required = false) Integer carStatusId, @RequestParam(value = "car", required = false) Integer carId, Principal principal){
+            ,@RequestParam(value = "carStatus", required = false) Integer carStatusId, @RequestParam(value = "car"
+            ,required = false) Integer carId, Principal principal){
        orderService.updateOrderAndCarStatuses(carId, carStatusId, orderId, statusId, principal);
         return "redirect:/admin/order?id="+ orderId;
     }
 
     @PostMapping("/order/info")
-    public String updateOrderInfo (@RequestParam("order") Integer orderId, @RequestParam("info") String orderInfo, Principal principal){
+    public String updateOrderInfo (@RequestParam("order") Integer orderId, @RequestParam("info") String orderInfo
+            ,Principal principal){
         orderService.updateOrderInfo(orderId, orderInfo, principal);
         return "redirect:/admin/order?id="+ orderId;
     }

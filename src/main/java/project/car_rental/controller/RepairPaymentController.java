@@ -23,7 +23,8 @@ public class RepairPaymentController {
     }
 
     @PostMapping("/new")
-    public String saveRepairPaymentAndUpdateCarStatus (@RequestParam("order") Integer orderId, @RequestParam("carStatus") Integer carStatusId, @RequestParam("car") Integer carId
+    public String saveRepairPaymentAndUpdateCarStatus (@RequestParam("order") Integer orderId
+            ,@RequestParam("carStatus") Integer carStatusId, @RequestParam("car") Integer carId
             ,@ModelAttribute("repair_payment") @Valid RepairPayment repairPayment, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "repair_payment/new";

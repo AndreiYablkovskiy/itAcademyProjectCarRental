@@ -25,7 +25,8 @@ public class CarController {
     }
 
     @GetMapping("/cars")
-    public String getCarsByMarkAndStatus(@RequestParam(required = false) Integer statusId, @RequestParam String mark, Model model) {
+    public String getCarsByMarkAndStatus(@RequestParam(required = false) Integer statusId
+            ,@RequestParam String mark, Model model) {
         List<Car> cars = carService.getCarsByStatusIdAndMark(statusId, mark);
         model.addAttribute("cars", cars);
         model.addAttribute("statusId", statusId);

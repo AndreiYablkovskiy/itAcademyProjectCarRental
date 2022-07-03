@@ -90,7 +90,7 @@ public class OrderServiceImpl implements OrderService {
     public void updateOrderInfo(Integer orderId, String orderInfo, Principal principal) {
         User employee = userService.findByUsername(principal.getName());
         Order order = orderRepository.getById(orderId);
-        order.setOrderInfo(order.getOrderInfo()+ "\n@"+employee.getFirstname()+ " " +employee.getSurname()+ ": \n"+orderInfo);
+        order.setOrderInfo(order.getOrderInfo()+ "\n"+employee.getFirstname()+ " " +employee.getSurname()+ ": \n"+orderInfo);
         orderRepository.save(order);
     }
 
