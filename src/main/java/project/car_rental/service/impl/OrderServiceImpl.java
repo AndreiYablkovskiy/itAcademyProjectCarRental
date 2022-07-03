@@ -53,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
             order.setOrderInfo(" ");
             order.setPaymentValue(order.getCar().getCostForOneHour() * rentalDuration);
             orderRepository.save(order);
-            emailSenderService.sendEmail(user.getEmail(),"Order number " +order.getId()
+            emailSenderService.sendEmail(user.getEmail(),"Order number " +order.getId() //Did not work, because need to add spring.mail.username and spring.mail.password to the application.properties
             ,"Your order has been successfully created.");
             return true;
     }

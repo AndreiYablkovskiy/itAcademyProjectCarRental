@@ -28,6 +28,9 @@ class OrderControllerTest {
                 .andExpect(view().name("orders/new"));
     }
 
+    /**
+     * Need to add spring.mail.username and spring.mail.password to the test/resources/application.properties
+     */
     @Test
     void createOrder() throws Exception {
         Principal principal = new Principal() {
